@@ -1,6 +1,7 @@
 using Paintastic.Utility.Timer;
 using UnityEngine;
-using UnityEngine.Events;
+using TMPro;
+using System;
 
 namespace Paintastic.Scene.Gameplay
 {
@@ -9,11 +10,18 @@ namespace Paintastic.Scene.Gameplay
         [SerializeField] private Timer _gameTimer;
         [SerializeField] private Timer _playerOneTimer;
         [SerializeField] private Timer _playerTwoTimer;
+        [SerializeField] private TMP_Text _remainingTime;
 
         private void Start()
         {
             _gameTimer.OnTimerEnd += GameOver;
             StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
+        }
+
+        private void Update()
+        {   
+            TimeSpan timeSpan = TimeSpan.FromSeconds(_gameTimer.GetRemainingTime());
+            _remainingTime.text = "Remaining Time: " + timeSpan.ToString(@"m\:ss");
         }
 
         private void StartGame()
@@ -23,7 +31,31 @@ namespace Paintastic.Scene.Gameplay
 
         private void GameOver()
         {
+            // TODO
             Debug.Log("game over");
+        }
+
+        private void PickupItem(string itemName, int player)
+        {
+            if (itemName == "CollectPoint")
+            {
+                CollectPoint(player);
+            }
+        }
+
+        private void SpawnCollectPoint()
+        {
+            // TODO
+        }
+
+        private void SpawnBomb()
+        {
+            // TODO
+        }
+
+        private void CollectPoint(int player)
+        {
+            // TODO
         }
     }
 }

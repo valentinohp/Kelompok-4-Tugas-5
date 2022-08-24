@@ -6,16 +6,16 @@ namespace Paintastic.Utility.Timer
     public class Timer : MonoBehaviour
     {
         public UnityAction OnTimerEnd;
-        [SerializeField] private float duration;
-        private bool isRunning;
-        private float time;
+        [SerializeField] private float _duration;
+        private bool _isRunning;
+        private float _time;
 
         private void Update()
         {
-            if (isRunning)
+            if (_isRunning)
             {
-                time += Time.deltaTime;
-                if (time >= duration)
+                _time += Time.deltaTime;
+                if (_time >= _duration)
                 {   
                     EndTimer();
                 }
@@ -24,15 +24,29 @@ namespace Paintastic.Utility.Timer
 
         public void StartTimer()
         {
-            time = 0f;
-            isRunning = true;
+            _time = 0f;
+            _isRunning = true;
             Debug.Log(gameObject.name + " started");
         }
 
         public void EndTimer()
         {
-            isRunning = false;
+            _isRunning = false;
             OnTimerEnd?.Invoke();
+        }
+
+        public float GetDuration()
+        {
+            return _duration;
+        }
+
+        public float GetRemainingTime()
+        {
+            if (!_isRunning)
+            {
+                return 0f;
+            }
+            return _duration - _time;
         }
     }
 }
