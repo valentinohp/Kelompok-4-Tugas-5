@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paintastic.UI.ColorSelect;
 
-public class AudioManager : MonoBehaviour
+namespace Paintastic.Global.Modules.Audio
 {
-    [SerializeField] private AudioSource _backgroundMusic;
-
-    
-
-    void Start()
+    public class AudioManager : MonoBehaviour
     {
-       
+        [SerializeField] private AudioSource _backgroundMusic;
+
+
+
+        void Start()
+        {
+
+        }
+
+
+        void Update()
+        {
+
+        }
     }
 
-   
-    void Update()
-    {
-        
-    }
 }
+

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Paintastic.Global.Modules.SaveData;
 
 public class AudioToggleSetting : MonoBehaviour
 {
@@ -38,6 +39,21 @@ public class AudioToggleSetting : MonoBehaviour
         
     }
 
+    public void ToggleBgm()
+    {
+        isBgmOn = !isBgmOn;
+        OnToggleBgmClick(isBgmOn);
+        if (isBgmOn)
+        {
+            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _onBtnPos;
+        }
+        else if (!isBgmOn)
+        {
+            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
+        }
+    }
+
+
     private void SetCurrentBtnBgmPos(bool _isBgmOn)
     {
        if(_isBgmOn == true)
@@ -49,21 +65,7 @@ public class AudioToggleSetting : MonoBehaviour
             _currentBgmButtonPos = _offBtnPos;
         }
     }
-    
-    public void ToggleBgm()
-    {
-        isBgmOn = !isBgmOn;
-        OnToggleBgmClick(isBgmOn);
-        if(isBgmOn)
-        {
-            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _onBtnPos;
-        }
-        else if(!isBgmOn)
-        {
-            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
-        }
-    }
-
+   
     private void CheckBgmOn()
     {
         if (PlayerPrefs.GetInt("isAudioOn") == 1)
