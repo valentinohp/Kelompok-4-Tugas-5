@@ -14,7 +14,7 @@ public class AudioToggleSetting : MonoBehaviour
     [SerializeField] private Vector3 _offBtnPos;
     [SerializeField] private GameObject _controlBgmButton;
 
-    private Vector3 _currentBgmButtonPos;
+    public Vector3 _currentBgmButtonPos;
     private Vector3 _currentSoundFXButtonPos;
     private bool isBgmOn = true;
 
@@ -25,12 +25,24 @@ public class AudioToggleSetting : MonoBehaviour
 
     private void OnDisable()
     {
-        SaveData.OnLoadAudioSetting -= SetCurrentBtnBgmPos;
+       /* SaveData.OnLoadAudioSetting -= SetCurrentBtnBgmPos;*/
+    }
+
+    private void SetCurrentBtnBgmPos(bool _isBgmOn)
+    {
+        Debug.Log("tes");
+        if (_isBgmOn == true)
+        {
+           _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _onBtnPos;
+        }
+        else if (_isBgmOn == false)
+        {
+            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
+        }
     }
 
     void Start()
     {
-        _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _currentBgmButtonPos;
         CheckBgmOn();
     }
 
@@ -53,18 +65,6 @@ public class AudioToggleSetting : MonoBehaviour
         }
     }
 
-
-    private void SetCurrentBtnBgmPos(bool _isBgmOn)
-    {
-       if(_isBgmOn == true)
-        {
-            _currentBgmButtonPos = _onBtnPos;
-        }
-       else
-        {
-            _currentBgmButtonPos = _offBtnPos;
-        }
-    }
    
     private void CheckBgmOn()
     {
