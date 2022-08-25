@@ -17,8 +17,8 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private Image _playerTwoImage;
         [SerializeField] private Button _backToMenu;
         [SerializeField] private Button _startGame;
-        private int _playerOneColor;
-        private int _playerTwoColor;
+        private int _playerOneColor =4;
+        private int _playerTwoColor=1;
            
         private Color[] _colors;
 
@@ -39,8 +39,6 @@ namespace Paintastic.UI.ColorSelect
                 Color.red,
                 Color.blue
             };
-            string tes = PlayerPrefs.GetString("playerOneColor");
-            Debug.Log(tes);
 
             InitSetPlayerColor();
             
@@ -49,15 +47,15 @@ namespace Paintastic.UI.ColorSelect
         private void InitSetPlayerColor()
         {
             string p1color = PlayerPrefs.GetString("playerOneColor");
-            string p2color = PlayerPrefs.GetString("playerOneColor");
+            string p2color = PlayerPrefs.GetString("playerTwoColor");
 
             Color p1,p2;
 
-            if (ColorUtility.TryParseHtmlString(p1color, out p1))
+            if (ColorUtility.TryParseHtmlString("#"+p1color, out p1))
             {
                 _playerOneImage.color = p1;
             }
-            if (ColorUtility.TryParseHtmlString(p2color, out p2))
+            if (ColorUtility.TryParseHtmlString("#" +p2color, out p2))
             {
                 _playerTwoImage.color = p2;
             }
