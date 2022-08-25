@@ -49,11 +49,11 @@ namespace Paintastic.Global.Modules.SaveData
             int isAudioOn = PlayerPrefs.GetInt("isAudioOn");
             if (isAudioOn == 1)
             {
-                OnLoadAudioSetting(true);
+                OnLoadAudioSetting?.Invoke(true);
             }
             else if (isAudioOn == 0)
             {
-                OnLoadAudioSetting(false);
+                OnLoadAudioSetting?.Invoke(false);
             }
         }
 

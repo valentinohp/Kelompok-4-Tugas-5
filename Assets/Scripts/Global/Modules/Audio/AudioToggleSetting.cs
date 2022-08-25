@@ -20,22 +20,19 @@ public class AudioToggleSetting : MonoBehaviour
 
     private void OnEnable()
     {
-        SaveData.OnLoadAudioSetting += SetCurrentBtnBgmPos;
     }
 
     private void OnDisable()
     {
-       /* SaveData.OnLoadAudioSetting -= SetCurrentBtnBgmPos;*/
     }
 
-    private void SetCurrentBtnBgmPos(bool _isBgmOn)
+    private void SetCurrentBtnBgmPos()
     {
-        Debug.Log("tes");
-        if (_isBgmOn == true)
+        if (isBgmOn == true)
         {
            _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _onBtnPos;
         }
-        else if (_isBgmOn == false)
+        else if (isBgmOn == false)
         {
             _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
         }
@@ -44,6 +41,7 @@ public class AudioToggleSetting : MonoBehaviour
     void Start()
     {
         CheckBgmOn();
+        SetCurrentBtnBgmPos();
     }
 
     void Update()
