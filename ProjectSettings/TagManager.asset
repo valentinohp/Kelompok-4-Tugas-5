@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Tile
+  - Player2
+  - P1
+  - P2
+  - p1tile
+  - p2tile
   layers:
   - Default
   - TransparentFX
