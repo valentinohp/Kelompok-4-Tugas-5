@@ -17,11 +17,10 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private Image _playerTwoImage;
         [SerializeField] private Button _backToMenu;
         [SerializeField] private Button _startGame;
-        public int _playerOneColor =4;
-        public int _playerTwoColor=1;
-           
+        private int _playerOneColor = 4;
+        private int _playerTwoColor = 1;
         private Color[] _colors;
-
+           
         private void Start()
         {
             _playerOneNext.onClick.AddListener(delegate { OnPlayerOneCycle(1); });
@@ -30,6 +29,16 @@ namespace Paintastic.UI.ColorSelect
             _playerTwoPrev.onClick.AddListener(delegate { OnPlayerTwoCycle(-1); });
             _backToMenu.onClick.AddListener(OnHideColorSelect);
             _startGame.onClick.AddListener(OnStartGame);
+
+            /*_colors = new Dictionary<string, Color>()
+            {
+                { "black", ((Material) Resources.Load("@Resources/Materials/Black")).color },
+                { "White", ((Material) Resources.Load("@Resources/Materials/White")).color },
+                { "Green", ((Material) Resources.Load("Resources/Materials/Green")).color },
+                { "Red", ((Material) Resources.Load("@Resources/Materials/Red")).color },
+                { "Yellow",((Material) Resources.Load("@Resources/Materials/Yellow")).color },
+                { "Blue", ((Material) Resources.Load("@Resources/Materials/Blue")).color }
+            };*/
 
             _colors = new Color[]
             {
@@ -49,33 +58,8 @@ namespace Paintastic.UI.ColorSelect
             string p1color = PlayerPrefs.GetString("playerOneColor");
             string p2color = PlayerPrefs.GetString("playerTwoColor");
 
-            Color p1,p2;
-
-            if (ColorUtility.TryParseHtmlString("#"+p1color, out p1))
-            {
-                for (int i = 0; i < _colors.Length; i++)
-                {
-                    if (p1 == _colors[i])
-                    {
-                        _playerOneColor = i;
-                        _playerOneImage.color = _colors[i];
-                        break;
-                    }
-                }
-            }
-            if (ColorUtility.TryParseHtmlString("#" +p2color, out p2))
-            {
-                for (int i = 0; i < _colors.Length; i++)
-                {
-                    if (p2 == _colors[i])
-                    {
-                        _playerTwoColor = i;
-                        _playerTwoImage.color = _colors[i];
-                        break;
-                    }
-                }
-            }
-
+            _playerOneImage.color = _colors[_playerOneColor];
+            _playerTwoImage.color = _colors[_playerTwoColor];
         }
 
         private void OnPlayerOneCycle(int num)
