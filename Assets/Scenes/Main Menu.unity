@@ -868,6 +868,8 @@ MonoBehaviour:
   _playerTwoImage: {fileID: 2054505591}
   _backToMenu: {fileID: 2033583105}
   _startGame: {fileID: 1353713995}
+  _playerOneColor: 4
+  _playerTwoColor: 1
 --- !u!114 &415560975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2014,7 +2016,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &886391498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3279,6 +3281,7 @@ GameObject:
   - component: {fileID: 1983616145}
   - component: {fileID: 1983616144}
   - component: {fileID: 1983616143}
+  - component: {fileID: 1983616148}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -3385,6 +3388,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1983616148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983616142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c5f3040ffccc448ada3ed5d25224fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _popupSettingBtn: {fileID: 664824795}
+  _closePopupBtn: {fileID: 1397160237}
+  _popupSetting: {fileID: 886391497}
 --- !u!1 &2033583103
 GameObject:
   m_ObjectHideFlags: 0
