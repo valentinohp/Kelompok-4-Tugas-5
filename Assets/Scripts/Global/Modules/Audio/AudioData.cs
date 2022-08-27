@@ -9,14 +9,25 @@ namespace Paintastic.Global.Modules.Audio
     [CreateAssetMenu]
     public class AudioData : ScriptableObject
     {
+    
       [System.Serializable]
-      public struct Sounds
+      public struct Bgm
         {
             public string _soundName;
             public AudioClip _clip;
         }
 
-        public List<Sounds> _sounds;
+      [System.Serializable]
+      public struct SoundsFX
+        {
+            public string _soundName;
+            public AudioClip _clip;
+            [Range(0f, 1f)] public float _volume;
+            public bool isLoop;
+        }
+
+        public List<Bgm> _backgroundMusic;
+        public List<SoundsFX> _soundsFx;
 
     }
 

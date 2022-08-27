@@ -6,22 +6,29 @@ namespace Paintastic.Global.Modules.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioSource _bgmSource;
+        [SerializeField] private AudioSource _soundFxSource;
         [SerializeField] private AudioData _audioData;
         private bool _isAudioOn = true ;
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         void Start()
         {
-            _audioSource = GetComponent<AudioSource>();
+            _bgmSource = GetComponent<AudioSource>();
+            _soundFxSource = GetComponent<AudioSource>();
         }
 
 
         void Update()
         {
-            CheckSoundOn();
+            IsSoundOn();
         }
 
-        private void CheckSoundOn()
+        private void IsSoundOn()
         {
             if(PlayerPrefs.GetInt("isAudioOn") == 1)
             {
@@ -33,43 +40,63 @@ namespace Paintastic.Global.Modules.Audio
             }
         }
 
-        private void OnPlayerMove()
+        private void SetCurrentBgmClip(string clip)
         {
-            for (int i = 0; i < _audioData._sounds.Count; i++)
+            for (int i = 0; i < _audioData._backgroundMusic.Count; i++)
             {
-                if (_audioData._sounds[i]._soundName == "OnPlayerMove")
+                if (_audioData._backgroundMusic[i]._soundName == clip)
                 {
-                    _audioSource.clip = _audioData._sounds[i]._clip;
-                    if(_isAudioOn)
-                    _audioSource.Play();
-                }
-                break;
-            }
-  
-        }
-
-        private void OnCollectPoint()
-        {
-            for (int i = 0; i < _audioData._sounds.Count; i++)
-            {
-                if(_audioData._sounds[i]._soundName == "OnCollectPoint")
-                {
-                    _audioSource.clip = _audioData._sounds[i]._clip;
+                    _bgmSource.clip = _audioData._backgroundMusic[i]._clip;
                     if (_isAudioOn)
-                        _audioSource.Play();
+                        _bgmSource.Play();
                 }
                 break;
             }
         }
 
-        private void OnCollideBomb()
+        private void SetCurrentSoundFXClip(string clip)
         {
-            //play sound bomb
+            for (int i = 0; i < _audioData._soundsFx.Count; i++)
+            {
+                if (_audioData._soundsFx[i]._soundName == clip)
+                {
+                    _soundFxSource.clip = _audioData._soundsFx[i]._clip;
+                    _soundFxSource.volume = _soundFxSource.volume * _audioData._soundsFx[i]._volume;
+                    _soundFxSource.loop = _audioData._soundsFx[i].isLoop;
+                    if (_isAudioOn)
+                        _soundFxSource.Play();
+                }
+            }
         }
 
-        private void OnGameOver()
+        protected void OnMainMenu()
         {
-            //play sound Game Over
+            SetCurrentBgmClip("OnMainMenu");
+        }
+
+        protected void OnGameplay()
+        {
+            SetCurrentBgmClip("OnGameplay");
+        }
+
+        protected void OnPlayerMove()
+        {
+            SetCurrentSoundFXClip("OnPlayerMove");
+        }
+
+        protected void OnCollectPoint()
+        {
+            SetCurrentSoundFXClip("OnCollectPoint");
+        }
+
+        protected void OnCollideBomb()
+        {
+            SetCurrentSoundFXClip("OnCollideBomb");
+        }
+
+        protected void OnGameOver()
+        {
+            SetCurrentSoundFXClip("OnGameOver");
         }
     }
 

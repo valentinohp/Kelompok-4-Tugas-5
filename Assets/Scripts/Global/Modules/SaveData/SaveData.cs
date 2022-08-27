@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Paintastic.UI.ColorSelect;
+using Paintastic.Global.Modules.Audio;
 
 namespace Paintastic.Global.Modules.SaveData
 {
@@ -11,14 +12,14 @@ namespace Paintastic.Global.Modules.SaveData
         public static Action<int> OnLoadSelectedPlayerColor;
         public static Action<bool> OnLoadAudioSetting;
 
+        [SerializeField] private ColorSelectData _colorSelectData;
+
         private void Awake()
         {
             DontDestroyOnLoad(this);
         }
         void Start()
         {
-            GetPlayerColor();
-            GetAudioSetting();
         }
 
         void Update()
@@ -38,32 +39,8 @@ namespace Paintastic.Global.Modules.SaveData
             ColorSelect.OnPlayerColorChanged -= SavePlayerColor;
         }
 
-        protected void GetPlayerColor()
+        protected void SavePlayerColor(int indexPlayer, int indexColor)
         {
-            /* int indexColor = PlayerPrefs.GetInt("indexColorPlayer1");
-             OnLoadSelectedPlayerColor(indexColor);*/
-        }
-
-        protected void GetAudioSetting()
-        {
-            int isAudioOn = PlayerPrefs.GetInt("isAudioOn");
-            if (isAudioOn == 1)
-            {
-                OnLoadAudioSetting?.Invoke(true);
-            }
-            else if (isAudioOn == 0)
-            {
-                OnLoadAudioSetting?.Invoke(false);
-            }
-        }
-
-        protected void SavePlayerColor(Color playerOneColor, Color playerTwoColor)
-        {
-            string _p1color = ColorUtility.ToHtmlStringRGB(playerOneColor);
-            string _p2color = ColorUtility.ToHtmlStringRGB(playerTwoColor);
-
-            PlayerPrefs.SetString("playerOneColor" , _p1color);
-            PlayerPrefs.SetString("playerTwoColor", _p2color);
         }
 
         protected void SaveAudioSetting(bool isAudioOn)

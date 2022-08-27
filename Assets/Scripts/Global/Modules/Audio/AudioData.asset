@@ -12,4 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2c92916eceeab48b2e96662742d184, type: 3}
   m_Name: AudioData
   m_EditorClassIdentifier: 
-  _sounds: []
+  _backgroundMusic:
+  - _soundName: OnMainMenu
+    _clip: {fileID: 0}
+  - _soundName: OnGameplay
+    _clip: {fileID: 0}
+  _soundsFx:
+  - _soundName: OnPlayerMove
+    _clip: {fileID: 0}
+    _volume: 0.901
+    isLoop: 1
+  - _soundName: OnCollectPoint
+    _clip: {fileID: 0}
+    _volume: 0.863
+    isLoop: 0
+  - _soundName: OnCollideBomb
+    _clip: {fileID: 0}
+    _volume: 0.736
+    isLoop: 0
+  - _soundName: OnGameOver
+    _clip: {fileID: 0}
+    _volume: 0.853
+    isLoop: 0
