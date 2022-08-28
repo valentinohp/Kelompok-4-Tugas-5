@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour
 	private float space = 3.5f;
 	//private int i = 0;
 
-	public event System.Action<string, int> OnPlayerTilesCount;
+	//public event System.Action<string, int> OnPlayerTilesCount;
 
 	void Start()
 	{
