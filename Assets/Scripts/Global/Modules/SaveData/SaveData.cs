@@ -41,6 +41,11 @@ namespace Paintastic.Global.Modules.SaveData
 
         protected void SavePlayerColor(int indexPlayer, int indexColor)
         {
+            for(int i = 0; i < ColorSelectManager.ColorSelects; i++)
+            {
+                string temp = $"player{indexPlayer}";
+                PlayerPrefs.SetInt(temp, indexColor);
+            }
         }
 
         protected void SaveAudioSetting(bool isAudioOn)

@@ -14,18 +14,20 @@ namespace Paintastic.UI.ColorSelect
         public static UnityAction OnHideColorSelectEvent;
         public static UnityAction<int> OnApplyFirstColor;
 
+        public static int[] PlayerColors = new int[4] {1,2,-1,-1};
+        public static int ColorSelects;
+
         [SerializeField] private Button _backToMenu;
         [SerializeField] private Button _startGame;
         [SerializeField] private List<ColorSelect> _colorSelects;
 
-        public static int[] PlayerColors = new int[4];
 
         void Start()
         {
+            ColorSelects = _colorSelects.Count;
             _backToMenu.onClick.AddListener(OnHideColorSelect);
             _startGame.onClick.AddListener(OnStartGame);
             AddPlayerColorList();
-            ApplyFirstColor();
         }
 
         void Update()
@@ -33,17 +35,25 @@ namespace Paintastic.UI.ColorSelect
         
         }
 
+        private void OnEnable()
+        {
+            ColorSelect.OnCycle += OnCycle;
+        }
+
+        private void OnDisable()
+        {
+            ColorSelect.OnCycle -= OnCycle;
+        }
+
+        private void OnCycle(int indexPlayer, int colorPlayer)
+        {
+            Debug.Log("p1"+PlayerColors[0]);
+            Debug.Log("p2" + PlayerColors[1]);
+            PlayerColors[indexPlayer] = colorPlayer;
+        }
+
         private void AddPlayerColorList()
         {
-            //for(int i = 0; i < _colorSelects.Count; i++)
-            //{
-            //    int indexPlayer = i + 1;
-            //    string playerName = "player" + indexPlayer;
-            //    int colorIndex = PlayerPrefs.GetInt(playerName);
-
-            //    _playerColors.Add(colorIndex);
-            //}
-
             for (int i = 0; i < PlayerColors.Length; i++)
             {
                 if (i >= _colorSelects.Count)
@@ -51,20 +61,9 @@ namespace Paintastic.UI.ColorSelect
                     PlayerColors[i] = -1;
                     continue;
                 }
-                PlayerColors[i] = PlayerPrefs.GetInt($"player{i + 1}");
-            }
-        }
-
-        private void ApplyFirstColor()
-        {
-            for (int i = 0; i < _colorSelects.Count; i ++)
-            {
-                int indexPlayer = i + 1;
-                string playerName = "player" + indexPlayer;
-                int colorIndex = PlayerPrefs.GetInt(playerName);
-
-                Debug.Log(playerName);
-                _colorSelects[i].SetFirstColor(colorIndex);
+                string temp = $"player{i + 1}";
+                PlayerColors[i] = PlayerPrefs.GetInt(temp);
+                _colorSelects[i].SetFirstColor(PlayerColors[i]);
             }
         }
 

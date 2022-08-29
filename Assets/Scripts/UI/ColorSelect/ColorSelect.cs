@@ -9,6 +9,7 @@ namespace Paintastic.UI.ColorSelect
     public class ColorSelect : MonoBehaviour
     {
         public static UnityAction<int, int> OnPlayerColorChanged;
+        public static UnityAction<int, int> OnCycle;
 
         [SerializeField] private Button _playerNext;
         [SerializeField] private Button _playerPrev;
@@ -16,7 +17,7 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private int _indexPlayer;
         [SerializeField] private ColorSelectData _colorSelectData;
 
-        public int _playerColor = 4;
+        public int _playerColor ;
         private Color[] _colors = new Color[]
             {
                 Color.black,
@@ -50,7 +51,6 @@ namespace Paintastic.UI.ColorSelect
         {
             _playerColor = colorIndex;
             _playerImage.color = _colors[_playerColor];
-            Debug.Log("tes:"+_playerColor);
         }
 
         private void OnPlayerCycle(int num)
@@ -67,13 +67,15 @@ namespace Paintastic.UI.ColorSelect
                 _playerColor = _colors.Length - 1;
             }
 
-           /* for (int i = 0; i < ColorSelectManager._playerColors.Count; i++)
+            if (_playerColor == _colors.Length-1)
             {
-                if (_playerColor == ColorSelectManager._playerColors[i])
-                {
-                    OnPlayerCycle(-1);
-                }
-            }*/
+                OnCycle?.Invoke(_indexPlayer - 1, 0);
+            }
+            else
+            {
+                OnCycle?.Invoke(_indexPlayer - 1, _playerColor + 1);
+            }
+
 
             _playerImage.color = _colors[_playerColor];
 
