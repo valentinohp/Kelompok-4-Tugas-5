@@ -13,8 +13,6 @@ namespace Paintastic.Global.Audio
 
         public bool _muteBgm = true;
 
-        private float _volume;
-
         public static AudioManager instance;
 
         private void Awake()
