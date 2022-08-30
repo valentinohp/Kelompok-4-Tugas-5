@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Paintastic.Global.SaveData;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Paintastic.Global.Audio
 {
     public class AudioToggleSetting : MonoBehaviour
     {
-        public static Action<bool> OnToggleBgmClick;
-        public static Action OnToggleSoundFXClick;
+        public static UnityAction<bool> OnToggleBgmClick;
+        public static UnityAction OnToggleSoundFXClick;
 
         [SerializeField] private enum ButtonType { ButtonBGM, ButtonSoundFX }
         [SerializeField] private Vector3 _onBtnPos;
@@ -27,12 +25,8 @@ namespace Paintastic.Global.Audio
             CheckBgmOn();
             SetCurrentBtnBgmPos();
             _toggleBgm.onClick.AddListener(delegate { ToggleBgm(); });
+            _volumeSetting.onValueChanged.AddListener(delegate { SetVolume(); });
             _volumeSetting.value = 1f;
-        }
-
-        private void Update()
-        {
-            SetVolume();
         }
 
         private void SetVolume()
@@ -55,7 +49,7 @@ namespace Paintastic.Global.Audio
         public void ToggleBgm()
         {
             isBgmOn = !isBgmOn;
-            OnToggleBgmClick(isBgmOn);
+            OnToggleBgmClick?.Invoke(isBgmOn);
             if (isBgmOn)
             {
                 _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _onBtnPos;

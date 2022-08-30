@@ -11,10 +11,19 @@ namespace Paintastic.Global.SaveData
     {
         public static Action<int> OnLoadSelectedPlayerColor;
         public static Action<bool> OnLoadAudioSetting;
+        public static SaveData instance;
 
         private void Awake()
         {
-            DontDestroyOnLoad(this);
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(this);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void OnEnable()
