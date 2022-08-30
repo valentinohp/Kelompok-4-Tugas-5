@@ -1953,9 +1953,8 @@ GameObject:
   - component: {fileID: 1311968503}
   - component: {fileID: 1311968502}
   - component: {fileID: 1311968501}
-  - component: {fileID: 1311968500}
   m_Layer: 5
-  m_Name: Bgm
+  m_Name: BgmBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1982,24 +1981,6 @@ RectTransform:
   m_AnchoredPosition: {x: -41.79, y: 43.98}
   m_SizeDelta: {x: 111.0143, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1311968500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311968498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfabc8052342791448818dca3276a9d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onBtnPos: {x: 26, y: 0, z: 0}
-  _offBtnPos: {x: -26, y: 0, z: 0}
-  _controlBgmButton: {fileID: 1893878367}
-  _toggleBgm: {fileID: 0}
-  _volumeSetting: {fileID: 0}
-  _currentBgmButtonPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1311968501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2043,19 +2024,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1311968502}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1311968500}
-        m_TargetAssemblyTypeName: AudioToggleSetting, Assembly-CSharp
-        m_MethodName: ToggleBgm
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1311968502
 MonoBehaviour:
   m_ObjectHideFlags: 0
