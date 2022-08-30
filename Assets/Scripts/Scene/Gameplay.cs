@@ -1,4 +1,4 @@
-using Paintastic.Utility.Timer;
+using Paintastic.Utility;
 using UnityEngine;
 using TMPro;
 using System;
@@ -23,8 +23,16 @@ namespace Paintastic.Scene.Gameplay
         }
 
         private void Update()
-        {   
-            TimeSpan timeSpan = TimeSpan.FromSeconds(_gameTimer.GetRemainingTime());
+        {
+            TimeSpan timeSpan;
+            if (_gameTimer.GetIsRunning())
+            {
+                timeSpan = TimeSpan.FromSeconds(_gameTimer.GetRemainingTime() + 1);
+            }
+            else
+            {
+                timeSpan = TimeSpan.FromSeconds(0);
+            }
             _remainingTime.text = "Remaining Time: " + timeSpan.ToString(@"m\:ss");
         }
 

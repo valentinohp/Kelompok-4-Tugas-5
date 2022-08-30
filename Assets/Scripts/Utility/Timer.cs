@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Paintastic.Utility.Timer
+namespace Paintastic.Utility
 {
     public class Timer : MonoBehaviour
     {
@@ -9,6 +9,7 @@ namespace Paintastic.Utility.Timer
         [SerializeField] private float _duration;
         private bool _isRunning;
         private float _time;
+        [SerializeField] private bool _loop = false;
 
         private void Update()
         {
@@ -18,6 +19,7 @@ namespace Paintastic.Utility.Timer
                 if (_time >= _duration)
                 {   
                     EndTimer();
+                    if (_loop) StartTimer();
                 }
             }
         }
@@ -26,7 +28,6 @@ namespace Paintastic.Utility.Timer
         {
             _time = 0f;
             _isRunning = true;
-            Debug.Log(gameObject.name + " started");
         }
 
         public void EndTimer()
@@ -47,6 +48,11 @@ namespace Paintastic.Utility.Timer
                 return 0f;
             }
             return _duration - _time;
+        }
+
+        public bool GetIsRunning()
+        {
+            return _isRunning;
         }
     }
 }

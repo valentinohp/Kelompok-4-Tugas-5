@@ -10,7 +10,7 @@ namespace Paintastic.Grid
         private int _posY;
 
         public bool isOccupied = false;
-
+        [SerializeField] private Material _defaultMaterial;
         [SerializeField] Material r, g, b, y;
 
         public void SetPosition(int x, int y)
@@ -31,6 +31,10 @@ namespace Paintastic.Grid
 
         public void SetColor(int number)
         {
+            if (number == 0)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = _defaultMaterial;
+            }
             if (number == 1)
             {
                 gameObject.GetComponent<MeshRenderer>().material = r;
