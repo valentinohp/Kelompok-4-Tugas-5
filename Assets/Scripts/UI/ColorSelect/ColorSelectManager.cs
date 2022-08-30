@@ -10,8 +10,6 @@ namespace Paintastic.UI.ColorSelect
     public class ColorSelectManager : MonoBehaviour
     {
         public static UnityAction OnStartGameEvent;
-        public static UnityAction OnHideColorSelectEvent;
-        public static UnityAction<int> OnApplyFirstColor;
 
         public static int[] PlayerColors = new int[4] { 1, 2, -1, -1 };
         public static int ColorSelects;
@@ -90,7 +88,7 @@ namespace Paintastic.UI.ColorSelect
 
         private void OnHideColorSelect()
         {
-            OnHideColorSelectEvent?.Invoke();
+            gameObject.SetActive(false);
         }
 
         private void OnStartGame()
