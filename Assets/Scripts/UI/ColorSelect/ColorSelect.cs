@@ -18,18 +18,6 @@ namespace Paintastic.UI.ColorSelect
 
         public int _playerColor;
 
-        private void OnEnable()
-        {
-            ColorSelectManager.OnHideColorSelectEvent += OnHideColorSelect;
-            ColorSelectManager.OnApplyFirstColor += SetFirstColor;
-        }
-
-        private void OnDisable()
-        {
-            ColorSelectManager.OnHideColorSelectEvent -= OnHideColorSelect;
-            ColorSelectManager.OnApplyFirstColor -= SetFirstColor;
-        }
-
         private void Start()
         {
             _playerNext.onClick.AddListener(delegate { OnPlayerCycle(1); });
@@ -71,11 +59,6 @@ namespace Paintastic.UI.ColorSelect
 
             OnCycle?.Invoke(_indexPlayer, _playerColor);
             _playerImage.color = ColorSelectManager.Colors[_playerColor];
-        }
-
-        private void OnHideColorSelect()
-        {
-            gameObject.SetActive(false);
         }
     }
 }
