@@ -2,29 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerChildAnim : MonoBehaviour
+
+namespace Paintastic.Player
 {
-
-    private Animator animator;
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerChildAnim : MonoBehaviour
     {
-        animator = GetComponent<Animator>();   
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        private Animator _animator;
+        // Start is called before the first frame update
+        void Start()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
-    public void SetJump()
-    {
-        animator.SetBool("isJump", true);
-    }
+        // Update is called once per frame
+        void Update()
+        {
 
-    public void SetIdle()
-    {
-        animator.SetBool("isJump", false);
+        }
+
+        public void SetJump()
+        {
+            _animator.SetBool("isJump", true);
+        }
+
+        public void SetIdle()
+        {
+            _animator.SetBool("isJump", false);
+        }
     }
 }
+

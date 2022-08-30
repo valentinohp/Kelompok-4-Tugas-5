@@ -2,22 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControlScript : MonoBehaviour
+
+namespace Paintastic.Player
 {
-
-    public List<GameObject> playersList;
-    public List<GameObject> PlayerTarget;
-
-    // Start is called before the first frame update
-
-    public void AddPlayer(GameObject player)
+    public class PlayerControlScript : MonoBehaviour
     {
-        playersList.Add(player);
-    }
 
-    public void AddPlayerTarget(GameObject target)
-    {
-        PlayerTarget.Add(target);
-    }
+        public List<GameObject> playersList;
+        public List<GameObject> PlayerTarget;
 
+        // Start is called before the first frame update
+
+        public void AddPlayer(GameObject player)
+        {
+            playersList.Add(player);
+        }
+
+        public void AddPlayerTarget(GameObject target)
+        {
+            PlayerTarget.Add(target);
+        }
+
+    }
 }
+

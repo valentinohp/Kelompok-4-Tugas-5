@@ -1,182 +1,183 @@
+using Paintastic.Grid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+
+namespace Paintastic.Player
 {
-    public GameObject gridManager;
-
-    private int pos;
-    [SerializeField]
-    private int colortile;
-    private bool canMove;
-
-    [SerializeField]
-    private float counter;
-    private float orCounter;
-
-    [SerializeField]
-    private GameObject childColor;
-
-    [SerializeField]
-    private List<GameObject> players;
-
-
-    private KeyCode upward, downward, leftward, rightward;
-
-    [SerializeField] Material r, g, b, y;
-    [SerializeField]
-    private float speed;
-    private Transform target;
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerMove : MonoBehaviour
     {
-        gridManager = GameObject.Find("GridManager");
-        orCounter = counter;
-        SetSpawnPos();
-    }
+        public GameObject gridManager;
 
-    // Update is called once per frame
-    void Update()
-    {
-        var step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        private int _pos;
+        [SerializeField] private int _colortile;
+        private bool _canMove;
+
+        [SerializeField] private float _counter;
+        private float _orCounter;
+
+        [SerializeField] private GameObject _childColor;
+
+        [SerializeField] private List<GameObject> _players;
 
 
-        if(transform.position == target.position)
+        private KeyCode _upward, _downward, _leftward, _rightward;
+
+        [SerializeField] Material r, g, b, y;
+        [SerializeField] private float _speed;
+        private Transform _target;
+        // Start is called before the first frame update
+        void Start()
         {
-            ColoringGrid();
-            counter -= Time.deltaTime;
-            if(counter > 0)
+            gridManager = GameObject.Find("GridManager");
+            _orCounter = _counter;
+            SetSpawnPos();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            var step = _speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, _target.position, step);
+
+
+            if (transform.position == _target.position)
             {
-                return;
+                ColoringGrid();
+                _counter -= Time.deltaTime;
+                if (_counter > 0)
+                {
+                    return;
+                }
+                _canMove = true;
+                _counter = _orCounter;
             }
-            canMove = true;
-            counter = orCounter;
+
+
+            if (Input.GetKey(_leftward) && _canMove && _pos % 8 != 0)
+            {
+                _canMove = false;
+                Move(-1);
+            }
+
+            if (Input.GetKey(_rightward) && _canMove && ((_pos + 1) % 8 != 0))
+            {
+                _canMove = false;
+                Move(1);
+            }
+
+            if (Input.GetKey(_upward) && _canMove && _pos < 56)
+            {
+                _canMove = false;
+                Move(+8);
+            }
+
+            if (Input.GetKey(_downward) && _canMove && _pos > 7)
+            {
+                _canMove = false;
+                Move(-8);
+            }
         }
 
-
-        if (Input.GetKey(leftward) && canMove && pos % 8 != 0)
+        public void Move(int plus)
         {
-            canMove = false;
-            Move(-1);
+            GridContainer gridcont = gridManager.GetComponent<GridContainer>();
+            if (gameObject.tag == "P1")
+            {
+                MoveP1(gridcont, plus);
+            }
+            if (gameObject.tag == "P2")
+            {
+                MoveP2(gridcont, plus);
+            }
         }
 
-        if (Input.GetKey(rightward) && canMove && ((pos + 1) % 8 != 0))
+        public void ChangeColor(int colorCode)
         {
-            canMove = false;
-            Move(1);
+            _colortile = colorCode;
+            if (colorCode == 1)
+            {
+                _childColor.GetComponent<MeshRenderer>().material = r;
+            }
+            if (colorCode == 2)
+            {
+                _childColor.GetComponent<MeshRenderer>().material = g;
+            }
+            if (colorCode == 3)
+            {
+                _childColor.GetComponent<MeshRenderer>().material = b;
+            }
+            if (colorCode == 4)
+            {
+                _childColor.GetComponent<MeshRenderer>().material = y;
+            }
         }
 
-        if (Input.GetKey(upward) && canMove && pos < 56)
+
+        public void SetSpawnPos()
         {
-            canMove = false;
-            Move(+8);
+            if (gameObject.tag == "P1")
+            {
+                _pos = 0;
+            }
+
+            if (gameObject.tag == "P2")
+            {
+                _pos = 63;
+            }
+            GridContainer gridcont = gridManager.GetComponent<GridContainer>();
+            _target = gridcont.Poles[_pos].transform;
         }
 
-        if (Input.GetKey(downward) && canMove && pos > 7)
+        public void SetMovement(KeyCode w, KeyCode a, KeyCode s, KeyCode d)
         {
-            canMove = false;
-            Move(-8);
+            _upward = w;
+            _downward = s;
+            _leftward = a;
+            _rightward = d;
         }
-    }
 
-    void Move(int plus)
-    {
-        GridContainer gridcont = gridManager.GetComponent<GridContainer>();
-        if(gameObject.tag == "P1")
+        public void ColoringGrid()
         {
-            MoveP1(gridcont, plus);
+            GridCell gridcell = _target.GetComponent<GridCell>();
+            gridcell.PrintName();
+            gridcell.SetColor(_colortile);
         }
-        if (gameObject.tag == "P2")
+
+        public void MoveP1(GridContainer gridcont, int plus)
         {
-            MoveP2(gridcont, plus);
-        }
-    }
+            GameObject targetNom;
+            int listCount;
+            targetNom = gridcont.Poles[_pos + plus];
+            listCount = gridcont.P2Tile.Count;
 
-    public void ChangeColor(int colorCode)
-    {
-        colortile = colorCode;
-        if (colorCode == 1)
+            if (gridcont.P2Tile[listCount - 1] != targetNom)
+            {
+                _target = gridcont.Poles[_pos + plus].transform;
+                _pos += plus;
+            }
+        }
+
+        public void MoveP2(GridContainer gridcont, int plus)
         {
-            childColor.GetComponent<MeshRenderer>().material = r;
+            GameObject targetNom;
+            int listCount;
+            targetNom = gridcont.Poles[_pos + plus];
+            listCount = gridcont.P1Tile.Count;
+
+            if (gridcont.P1Tile[listCount - 1] != targetNom)
+            {
+                _target = gridcont.Poles[_pos + plus].transform;
+                _pos += plus;
+            }
         }
-        if (colorCode == 2)
+
+        public void AddPlayer(GameObject playerfabs)
         {
-            childColor.GetComponent<MeshRenderer>().material = g;
+            _players.Add(playerfabs);
         }
-        if (colorCode == 3)
-        {
-            childColor.GetComponent<MeshRenderer>().material = b;
-        }
-        if (colorCode == 4)
-        {
-            childColor.GetComponent<MeshRenderer>().material = y;
-        }
-    }
-
-
-    public void SetSpawnPos()
-    {
-        if(gameObject.tag == "P1")
-        {
-            pos = 0;
-        }
-
-        if (gameObject.tag == "P2")
-        {
-            pos = 63;
-        }
-        GridContainer gridcont = gridManager.GetComponent<GridContainer>();
-        target = gridcont.Poles[pos].transform;
-    }
-
-    public void SetMovement(KeyCode w, KeyCode a, KeyCode s, KeyCode d)
-    {
-        upward = w;
-        downward = s;
-        leftward = a;
-        rightward = d;
-    }
-
-    public void ColoringGrid()
-    {
-        GridCell gridcell = target.GetComponent<GridCell>();
-        gridcell.PrintName();
-        gridcell.SetColor(colortile);
-    }
-
-    public void MoveP1(GridContainer gridcont, int plus)
-    {
-        GameObject targetNom;
-        int listCount;
-        targetNom = gridcont.Poles[pos + plus];
-        listCount = gridcont.P2Tile.Count;
-
-        if (gridcont.P2Tile[listCount - 1] != targetNom)
-        {
-            target = gridcont.Poles[pos + plus].transform;
-            pos += plus;
-        }
-    }
-
-    public void MoveP2(GridContainer gridcont, int plus)
-    {
-        GameObject targetNom;
-        int listCount;
-        targetNom = gridcont.Poles[pos + plus];
-        listCount = gridcont.P1Tile.Count;
-
-        if (gridcont.P1Tile[listCount - 1] != targetNom)
-        {
-            target = gridcont.Poles[pos + plus].transform;
-            pos += plus;
-        }
-    }
-
-    public void AddPlayer(GameObject playerfabs)
-    {
-        players.Add(playerfabs);
     }
 }
+

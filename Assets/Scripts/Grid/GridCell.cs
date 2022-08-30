@@ -2,49 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridCell : MonoBehaviour
+namespace Paintastic.Grid
 {
-	// Start is called before the first frame update
-	private int posX;
-	private int posY;
-
-	public bool isOccupied = false;
-
-	[SerializeField] Material r, g, b, y;
-
-	public void SetPosition(int x, int y)
+	public class GridCell : MonoBehaviour
 	{
-		posX = x;
-		posY = y;
-	}
+		// Start is called before the first frame update
+		private int _posX;
+		private int _posY;
 
-	public Vector2Int GetPosition()
-	{
-		return new Vector2Int(posX, posY);
-	}
+		public bool isOccupied = false;
 
-	public void PrintName()
-    {
-		Debug.Log(gameObject.name);
-    }
+		[SerializeField] Material r, g, b, y;
 
-	public void SetColor(int number)
-    {
-        if(number == 1)
-        {
-            gameObject.GetComponent<MeshRenderer>().material = r;
-        }
-		if (number == 2)
+		public void SetPosition(int x, int y)
 		{
-			gameObject.GetComponent<MeshRenderer>().material = g;
+			_posX = x;
+			_posY = y;
 		}
-		if (number == 3)
+
+		public Vector2Int GetPosition()
 		{
-			gameObject.GetComponent<MeshRenderer>().material = b;
+			return new Vector2Int(_posX, _posY);
 		}
-		if (number == 4)
+
+		public void PrintName()
 		{
-			gameObject.GetComponent<MeshRenderer>().material = y;
+			Debug.Log(gameObject.name);
+		}
+
+		public void SetColor(int number)
+		{
+			if (number == 1)
+			{
+				gameObject.GetComponent<MeshRenderer>().material = r;
+			}
+			if (number == 2)
+			{
+				gameObject.GetComponent<MeshRenderer>().material = g;
+			}
+			if (number == 3)
+			{
+				gameObject.GetComponent<MeshRenderer>().material = b;
+			}
+			if (number == 4)
+			{
+				gameObject.GetComponent<MeshRenderer>().material = y;
+			}
 		}
 	}
 }
+
