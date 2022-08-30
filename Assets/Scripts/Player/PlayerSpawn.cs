@@ -52,7 +52,8 @@ namespace Paintastic.Player
                 playercontrol.AddPlayerTarget(gridcontainer.Poles[playerPoles]);
 
                 ColorManager clrmngr = gameObject.GetComponent<ColorManager>();
-                Material colormat = clrmngr.colorMaterial[i];
+                // Material colormat = clrmngr.colorMaterial[i];
+                Material colormat = clrmngr.colorMaterial[PlayerPrefs.GetInt($"player{i + 1}")];
 
                 PlayerScript playerscript = player.GetComponent<PlayerScript>();
                 playerscript.SpawnSet(_playerSpeed, _playerMoveTimer, _upkey, _leftkey, _downkey, _rightkey, i, gridsize, gridcontainer.Poles[playerPoles], playerPoles, colormat);

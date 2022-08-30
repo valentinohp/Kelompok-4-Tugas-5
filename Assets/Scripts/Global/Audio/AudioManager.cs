@@ -24,7 +24,7 @@ namespace Paintastic.Global.Audio
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
 

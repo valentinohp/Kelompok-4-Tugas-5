@@ -18,9 +18,10 @@ namespace Paintastic.UI.ColorSelect
         {
             Color.black,
             Color.white,
-            Color.green,
             Color.red,
-            Color.blue
+            Color.green,
+            Color.blue,
+            Color.yellow
         };
 
         [SerializeField] private Button _backToMenu;

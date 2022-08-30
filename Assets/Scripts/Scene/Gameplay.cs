@@ -3,12 +3,14 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Paintastic.Scene.Gameplay
 {
     public class Gameplay : MonoBehaviour
     {
         public static UnityAction OnGameplay;
+        public static UnityAction<int, Color> OnGameOver;
 
         [SerializeField] private Timer _gameTimer;
         [SerializeField] private Timer _playerOneTimer;
@@ -17,7 +19,6 @@ namespace Paintastic.Scene.Gameplay
 
         private void Start()
         {
-            OnGameplay();
             _gameTimer.OnTimerEnd += GameOver;
             StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
         }
@@ -39,12 +40,13 @@ namespace Paintastic.Scene.Gameplay
         private void StartGame()
         {
             _gameTimer.StartTimer();
+            OnGameplay?.Invoke();
         }
 
         private void GameOver()
         {
-            // TODO
-            Debug.Log("game over");
+            // TODO: change winner index from score and color
+            OnGameOver?.Invoke(1, Color.red);
         }
 
         private void PickupItem(string itemName, int player)
