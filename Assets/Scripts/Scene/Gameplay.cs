@@ -2,11 +2,14 @@ using Paintastic.Utility.Timer;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.Events;
 
 namespace Paintastic.Scene.Gameplay
 {
     public class Gameplay : MonoBehaviour
     {
+        public static UnityAction OnGameplay;
+
         [SerializeField] private Timer _gameTimer;
         [SerializeField] private Timer _playerOneTimer;
         [SerializeField] private Timer _playerTwoTimer;
@@ -14,6 +17,7 @@ namespace Paintastic.Scene.Gameplay
 
         private void Start()
         {
+            OnGameplay();
             _gameTimer.OnTimerEnd += GameOver;
             StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
         }

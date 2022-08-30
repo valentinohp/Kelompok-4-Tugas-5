@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Paintastic.Global.SaveData;
+using UnityEngine.UI;
 
 namespace Paintastic.Global.Audio
 {
@@ -15,10 +16,29 @@ namespace Paintastic.Global.Audio
         [SerializeField] private Vector3 _onBtnPos;
         [SerializeField] private Vector3 _offBtnPos;
         [SerializeField] private GameObject _controlBgmButton;
+        [SerializeField] private Button _toggleBgm;
+        [SerializeField] private Slider _volumeSetting;
 
         public Vector3 _currentBgmButtonPos;
-        private Vector3 _currentSoundFXButtonPos;
         private bool isBgmOn = true;
+
+        private void Start()
+        {
+            CheckBgmOn();
+            SetCurrentBtnBgmPos();
+            _toggleBgm.onClick.AddListener(delegate { ToggleBgm(); });
+            _volumeSetting.value = 1f;
+        }
+
+        private void Update()
+        {
+            SetVolume();
+        }
+
+        private void SetVolume()
+        {
+            AudioManager.instance.SetBgmVolume(_volumeSetting.value);
+        }
 
         private void SetCurrentBtnBgmPos()
         {
@@ -30,12 +50,6 @@ namespace Paintastic.Global.Audio
             {
                 _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
             }
-        }
-
-        private void Start()
-        {
-            CheckBgmOn();
-            SetCurrentBtnBgmPos();
         }
 
         public void ToggleBgm()
@@ -51,7 +65,6 @@ namespace Paintastic.Global.Audio
                 _controlBgmButton.GetComponent<RectTransform>().anchoredPosition = _offBtnPos;
             }
         }
-
 
         private void CheckBgmOn()
         {

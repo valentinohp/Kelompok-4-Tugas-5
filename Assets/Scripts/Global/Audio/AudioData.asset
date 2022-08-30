@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backgroundMusic:
   - _soundName: OnMainMenu
-    _clip: {fileID: 0}
+    _clip: {fileID: 8300000, guid: 04ede7b868e181b4fa7e4f43d01d8fb6, type: 3}
   - _soundName: OnGameplay
-    _clip: {fileID: 0}
+    _clip: {fileID: 8300000, guid: 0dddc884e0be40b4592dcef286be2716, type: 3}
   _soundsFx:
   - _soundName: OnPlayerMove
     _clip: {fileID: 0}
