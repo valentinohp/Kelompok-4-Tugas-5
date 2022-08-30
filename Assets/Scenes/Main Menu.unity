@@ -123,55 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &153410989
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 153410991}
-  - component: {fileID: 153410990}
-  m_Layer: 0
-  m_Name: ColorSelectData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &153410990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153410989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbac9161f4e91e04fbe9141138c1b51a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerColor:
-  - colorSelect: {fileID: 1850742081}
-    _indexColor: 2
-  - colorSelect: {fileID: 1433726993}
-    _indexColor: 4
---- !u!4 &153410991
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 153410989}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 478.9315, y: 173.85457, z: 2.0180078}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &241429367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,6 +2256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Color2
       objectReference: {fileID: 0}
+    - target: {fileID: 1227369449841985127, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1227369451384907154, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -2315,12 +2270,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465335976983388777, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
       propertyPath: _indexPlayer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465335976983388777, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
       propertyPath: _colorSelectData
       value: 
-      objectReference: {fileID: 153410990}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
 --- !u!224 &1433726992 stripped
@@ -2444,7 +2399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97680daf6174a9247bb0df60040d3df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorSelectData: {fileID: 153410990}
 --- !u!4 &1462033084
 Transform:
   m_ObjectHideFlags: 0
@@ -2836,7 +2790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465335976983388777, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}
       propertyPath: _indexPlayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4c4355a719fa36498f7cab457eb4aaa, type: 3}

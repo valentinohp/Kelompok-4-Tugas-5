@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Paintastic.Global.Modules.SaveData;
+using Paintastic.Global.SaveData;
 
-namespace Paintastic.Global.Modules.Audio
+namespace Paintastic.Global.Audio
 {
     public class AudioToggleSetting : MonoBehaviour
     {
@@ -20,14 +20,6 @@ namespace Paintastic.Global.Modules.Audio
         private Vector3 _currentSoundFXButtonPos;
         private bool isBgmOn = true;
 
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
-        }
-
         private void SetCurrentBtnBgmPos()
         {
             if (isBgmOn == true)
@@ -40,15 +32,10 @@ namespace Paintastic.Global.Modules.Audio
             }
         }
 
-        void Start()
+        private void Start()
         {
             CheckBgmOn();
             SetCurrentBtnBgmPos();
-        }
-
-        void Update()
-        {
-
         }
 
         public void ToggleBgm()
@@ -77,7 +64,5 @@ namespace Paintastic.Global.Modules.Audio
                 isBgmOn = false;
             }
         }
-
     }
-
 }

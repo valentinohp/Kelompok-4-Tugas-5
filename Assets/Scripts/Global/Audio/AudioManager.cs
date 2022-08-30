@@ -2,39 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Paintastic.Global.Modules.Audio
+namespace Paintastic.Global.Audio
 {
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] private AudioSource _bgmSource;
         [SerializeField] private AudioSource _soundFxSource;
         [SerializeField] private AudioData _audioData;
-        private bool _isAudioOn = true ;
+        private bool _isAudioOn = true;
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
         }
 
-        void Start()
+        private void Start()
         {
             _bgmSource = GetComponent<AudioSource>();
             _soundFxSource = GetComponent<AudioSource>();
         }
 
-
-        void Update()
+        private void Update()
         {
             IsSoundOn();
         }
 
         private void IsSoundOn()
         {
-            if(PlayerPrefs.GetInt("isAudioOn") == 1)
+            if (PlayerPrefs.GetInt("isAudioOn") == 1)
             {
                 _isAudioOn = true;
             }
-            else if(PlayerPrefs.GetInt("isAudioOn") == 0)
+            else if (PlayerPrefs.GetInt("isAudioOn") == 0)
             {
                 _isAudioOn = false;
             }
@@ -49,8 +48,8 @@ namespace Paintastic.Global.Modules.Audio
                     _bgmSource.clip = _audioData._backgroundMusic[i]._clip;
                     if (_isAudioOn)
                         _bgmSource.Play();
+                    break;
                 }
-                break;
             }
         }
 
@@ -65,6 +64,7 @@ namespace Paintastic.Global.Modules.Audio
                     _soundFxSource.loop = _audioData._soundsFx[i].isLoop;
                     if (_isAudioOn)
                         _soundFxSource.Play();
+                    break;
                 }
             }
         }

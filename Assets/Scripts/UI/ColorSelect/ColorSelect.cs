@@ -15,29 +15,18 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private Button _playerPrev;
         [SerializeField] private Image _playerImage;
         [SerializeField] private int _indexPlayer;
-        [SerializeField] private ColorSelectData _colorSelectData;
 
-        public int _playerColor ;
-        private Color[] _colors = new Color[]
-            {
-                Color.black,
-                Color.white,
-                Color.green,
-                Color.red,            
-                Color.blue
-            };
+        public int _playerColor;
 
         private void OnEnable()
         {
             ColorSelectManager.OnHideColorSelectEvent += OnHideColorSelect;
-            ColorSelectManager.OnStartGameEvent += OnStartGame;
             ColorSelectManager.OnApplyFirstColor += SetFirstColor;
         }
 
         private void OnDisable()
         {
             ColorSelectManager.OnHideColorSelectEvent -= OnHideColorSelect;
-            ColorSelectManager.OnStartGameEvent -= OnStartGame;
             ColorSelectManager.OnApplyFirstColor -= SetFirstColor;
         }
 
@@ -50,46 +39,43 @@ namespace Paintastic.UI.ColorSelect
         public void SetFirstColor(int colorIndex)
         {
             _playerColor = colorIndex;
-            _playerImage.color = _colors[_playerColor];
+            _playerImage.color = ColorSelectManager.Colors[_playerColor];
         }
 
         private void OnPlayerCycle(int num)
         {
             _playerColor += num;
 
-            if (_playerColor == _colors.Length)
+            if (_playerColor == ColorSelectManager.Colors.Length)
             {
                 _playerColor = 0;
             }
 
             if (_playerColor == -1)
             {
-                _playerColor = _colors.Length - 1;
+                _playerColor = ColorSelectManager.Colors.Length - 1;
             }
 
-            if (_playerColor == _colors.Length-1)
+            for (int i = 0; i < ColorSelectManager.PlayerColors.Length; i++)
             {
-                OnCycle?.Invoke(_indexPlayer - 1, 0);
+                if (_indexPlayer == i)
+                {
+                    continue;
+                }
+
+                if (_playerColor == ColorSelectManager.PlayerColors[i])
+                {
+                    OnPlayerCycle(num);
+                }
             }
-            else
-            {
-                OnCycle?.Invoke(_indexPlayer - 1, _playerColor + 1);
-            }
 
-
-            _playerImage.color = _colors[_playerColor];
-
+            OnCycle?.Invoke(_indexPlayer, _playerColor);
+            _playerImage.color = ColorSelectManager.Colors[_playerColor];
         }
 
-      
         private void OnHideColorSelect()
         {
             gameObject.SetActive(false);
-        }
-
-        private void OnStartGame()
-        {
-            OnPlayerColorChanged?.Invoke(_indexPlayer, _playerColor);
         }
     }
 }

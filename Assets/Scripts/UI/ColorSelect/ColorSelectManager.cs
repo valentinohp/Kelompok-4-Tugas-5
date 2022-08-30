@@ -9,30 +9,32 @@ namespace Paintastic.UI.ColorSelect
 {
     public class ColorSelectManager : MonoBehaviour
     {
-
         public static UnityAction OnStartGameEvent;
         public static UnityAction OnHideColorSelectEvent;
         public static UnityAction<int> OnApplyFirstColor;
 
-        public static int[] PlayerColors = new int[4] {1,2,-1,-1};
+        public static int[] PlayerColors = new int[4] { 1, 2, -1, -1 };
         public static int ColorSelects;
+
+        public static Color[] Colors = new Color[]
+        {
+            Color.black,
+            Color.white,
+            Color.green,
+            Color.red,
+            Color.blue
+        };
 
         [SerializeField] private Button _backToMenu;
         [SerializeField] private Button _startGame;
         [SerializeField] private List<ColorSelect> _colorSelects;
 
-
-        void Start()
+        private void Start()
         {
             ColorSelects = _colorSelects.Count;
             _backToMenu.onClick.AddListener(OnHideColorSelect);
             _startGame.onClick.AddListener(OnStartGame);
             AddPlayerColorList();
-        }
-
-        void Update()
-        {
-        
         }
 
         private void OnEnable()
@@ -47,14 +49,12 @@ namespace Paintastic.UI.ColorSelect
 
         private void OnCycle(int indexPlayer, int colorPlayer)
         {
-            Debug.Log("p1"+PlayerColors[0]);
-            Debug.Log("p2" + PlayerColors[1]);
             PlayerColors[indexPlayer] = colorPlayer;
         }
 
         private void AddPlayerColorList()
         {
-            for (int i = 0; i < PlayerColors.Length; i++)
+            for (int i = 0; i < _colorSelects.Count; i++)
             {
                 if (i >= _colorSelects.Count)
                 {
@@ -62,8 +62,29 @@ namespace Paintastic.UI.ColorSelect
                     continue;
                 }
                 string temp = $"player{i + 1}";
+
                 PlayerColors[i] = PlayerPrefs.GetInt(temp);
+
+                if (i > 0)
+                {
+                    if (PlayerColors[i] == PlayerColors[i - 1])
+                    {
+                        ResetAllColor();
+                        break;
+                    }
+                }
                 _colorSelects[i].SetFirstColor(PlayerColors[i]);
+            }
+        }
+
+        private void ResetAllColor()
+        {
+            for (int i = 0; i < _colorSelects.Count; i++)
+            {
+                PlayerColors[i] = i;
+                Debug.Log(_colorSelects[i]);
+                _colorSelects[i].SetFirstColor(i);
+                Debug.Log(i);
             }
         }
 

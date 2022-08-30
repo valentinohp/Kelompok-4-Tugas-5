@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-namespace Paintastic.Global.Modules.Audio
+namespace Paintastic.Global.Audio
 {
     [System.Serializable]
     [CreateAssetMenu]
     public class AudioData : ScriptableObject
     {
-    
-      [System.Serializable]
-      public struct Bgm
+        [System.Serializable]
+        public struct Bgm
         {
             public string _soundName;
             public AudioClip _clip;
         }
 
-      [System.Serializable]
-      public struct SoundsFX
+        [System.Serializable]
+        public struct SoundsFX
         {
             public string _soundName;
             public AudioClip _clip;
@@ -28,8 +26,5 @@ namespace Paintastic.Global.Modules.Audio
 
         public List<Bgm> _backgroundMusic;
         public List<SoundsFX> _soundsFx;
-
     }
-
 }
-

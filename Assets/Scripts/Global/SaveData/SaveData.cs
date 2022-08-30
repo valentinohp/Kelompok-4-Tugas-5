@@ -3,48 +3,38 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Paintastic.UI.ColorSelect;
-using Paintastic.Global.Modules.Audio;
+using Paintastic.Global.Audio;
 
-namespace Paintastic.Global.Modules.SaveData
+namespace Paintastic.Global.SaveData
 {
     public class SaveData : MonoBehaviour
     {
         public static Action<int> OnLoadSelectedPlayerColor;
         public static Action<bool> OnLoadAudioSetting;
 
-        [SerializeField] private ColorSelectData _colorSelectData;
-
         private void Awake()
         {
             DontDestroyOnLoad(this);
-        }
-        void Start()
-        {
-        }
-
-        void Update()
-        {
-
         }
 
         private void OnEnable()
         {
             AudioToggleSetting.OnToggleBgmClick += SaveAudioSetting;
-            ColorSelect.OnPlayerColorChanged += SavePlayerColor;
+            ColorSelectManager.OnStartGameEvent += SavePlayerColor;
         }
 
         private void OnDisable()
         {
             AudioToggleSetting.OnToggleBgmClick -= SaveAudioSetting;
-            ColorSelect.OnPlayerColorChanged -= SavePlayerColor;
+            ColorSelectManager.OnStartGameEvent -= SavePlayerColor;
         }
 
-        protected void SavePlayerColor(int indexPlayer, int indexColor)
+        protected void SavePlayerColor()
         {
-            for(int i = 0; i < ColorSelectManager.ColorSelects; i++)
+            for (int i = 0; i < ColorSelectManager.ColorSelects; i++)
             {
-                string temp = $"player{indexPlayer}";
-                PlayerPrefs.SetInt(temp, indexColor);
+                string temp = $"player{i + 1}";
+                PlayerPrefs.SetInt(temp, ColorSelectManager.PlayerColors[i]);
             }
         }
 
@@ -59,8 +49,5 @@ namespace Paintastic.Global.Modules.SaveData
                 PlayerPrefs.SetInt("isAudioOn", 0);
             }
         }
-
-
     }
-
 }
