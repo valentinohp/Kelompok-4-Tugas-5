@@ -36,6 +36,15 @@ namespace Paintastic.Grid
             CameraManager cameramanager = _mainCamera.GetComponent<CameraManager>();
             cameramanager.SetGridCenter(A, B);
         }
+
+        public void ClearTile(List<GameObject> tiles)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                tiles[i].GetComponent<GridCell>().SetColor(0);
+            }
+            tiles.Clear();
+        }
     }
 }
 
