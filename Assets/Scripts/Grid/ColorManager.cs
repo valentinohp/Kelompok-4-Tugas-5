@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class ColorManager : MonoBehaviour
 {
-
     public List<Material> colorMaterial;
 }

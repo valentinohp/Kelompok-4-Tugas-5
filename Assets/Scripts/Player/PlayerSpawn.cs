@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Paintastic.Player
 {
     public class PlayerSpawn : MonoBehaviour
     {
-
         public GameObject playerFabs;
         [SerializeField] private int _colorcode1, _colorcode2;
         public int playerCount;
@@ -18,17 +16,14 @@ namespace Paintastic.Player
         private KeyCode _downkey;
         private KeyCode _rightkey;
 
-        [SerializeField]
-        private float _playerSpeed;
-
-        [SerializeField]
-        private float _playerMoveTimer;
+        [SerializeField] private float _playerSpeed;
+        [SerializeField] private float _playerMoveTimer;
 
         public PlayerList playerMovement = new PlayerList();
 
         private ColorManager _colormanager;
 
-        void Start()
+        private void Start()
         {
             _colormanager = GetComponent<ColorManager>();
         }
@@ -61,8 +56,6 @@ namespace Paintastic.Player
 
                 PlayerScript playerscript = player.GetComponent<PlayerScript>();
                 playerscript.SpawnSet(_playerSpeed, _playerMoveTimer, _upkey, _leftkey, _downkey, _rightkey, i, gridsize, gridcontainer.Poles[playerPoles], playerPoles, colormat);
-
-
 
                 if (i == 2)
                 {

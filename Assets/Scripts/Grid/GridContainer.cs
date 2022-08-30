@@ -29,8 +29,6 @@ namespace Paintastic.Grid
 
                 SetCamPos(Poles[0], Poles[size - 1]);
             }
-
-
         }
 
         private void SetCamPos(GameObject A, GameObject B)
@@ -38,7 +36,6 @@ namespace Paintastic.Grid
             CameraManager cameramanager = _mainCamera.GetComponent<CameraManager>();
             cameramanager.SetGridCenter(A, B);
         }
-
     }
 }
 

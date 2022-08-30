@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 namespace Paintastic.Player
 {
     public class PlayerMove : MonoBehaviour
@@ -19,29 +18,25 @@ namespace Paintastic.Player
         private float _orCounter;
 
         [SerializeField] private GameObject _childColor;
-
         [SerializeField] private List<GameObject> _players;
-
 
         private KeyCode _upward, _downward, _leftward, _rightward;
 
         [SerializeField] Material r, g, b, y;
         [SerializeField] private float _speed;
         private Transform _target;
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             gridManager = GameObject.Find("GridManager");
             _orCounter = _counter;
             SetSpawnPos();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
             var step = _speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _target.position, step);
-
 
             if (transform.position == _target.position)
             {
@@ -54,7 +49,6 @@ namespace Paintastic.Player
                 _canMove = true;
                 _counter = _orCounter;
             }
-
 
             if (Input.GetKey(_leftward) && _canMove && _pos % 8 != 0)
             {
@@ -115,7 +109,6 @@ namespace Paintastic.Player
             }
         }
 
-
         public void SetSpawnPos()
         {
             if (gameObject.tag == "P1")
@@ -127,6 +120,7 @@ namespace Paintastic.Player
             {
                 _pos = 63;
             }
+
             GridContainer gridcont = gridManager.GetComponent<GridContainer>();
             _target = gridcont.Poles[_pos].transform;
         }

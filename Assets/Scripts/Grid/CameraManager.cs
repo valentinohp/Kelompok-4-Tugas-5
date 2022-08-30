@@ -4,31 +4,27 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-
     private float centerPos;
-
     private float posX, posY, posZ;
 
-
-    void Start()
+    private void Start()
     {
         SetOrPos();
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         transform.position = new Vector3(centerPos, posY, posZ);
     }
 
     public void SetGridCenter(GameObject A, GameObject B)
     {
-
         float xA = A.transform.position.x;
         float xB = B.transform.position.x;
 
         centerPos = ((xA + xB) / 2);
     }
-    
+
     private void SetOrPos()
     {
         posX = transform.position.x;

@@ -4,51 +4,50 @@ using UnityEngine;
 
 namespace Paintastic.Grid
 {
-	public class GridCell : MonoBehaviour
-	{
-		// Start is called before the first frame update
-		private int _posX;
-		private int _posY;
+    public class GridCell : MonoBehaviour
+    {
+        private int _posX;
+        private int _posY;
 
-		public bool isOccupied = false;
+        public bool isOccupied = false;
 
-		[SerializeField] Material r, g, b, y;
+        [SerializeField] Material r, g, b, y;
 
-		public void SetPosition(int x, int y)
-		{
-			_posX = x;
-			_posY = y;
-		}
+        public void SetPosition(int x, int y)
+        {
+            _posX = x;
+            _posY = y;
+        }
 
-		public Vector2Int GetPosition()
-		{
-			return new Vector2Int(_posX, _posY);
-		}
+        public Vector2Int GetPosition()
+        {
+            return new Vector2Int(_posX, _posY);
+        }
 
-		public void PrintName()
-		{
-			Debug.Log(gameObject.name);
-		}
+        public void PrintName()
+        {
+            Debug.Log(gameObject.name);
+        }
 
-		public void SetColor(int number)
-		{
-			if (number == 1)
-			{
-				gameObject.GetComponent<MeshRenderer>().material = r;
-			}
-			if (number == 2)
-			{
-				gameObject.GetComponent<MeshRenderer>().material = g;
-			}
-			if (number == 3)
-			{
-				gameObject.GetComponent<MeshRenderer>().material = b;
-			}
-			if (number == 4)
-			{
-				gameObject.GetComponent<MeshRenderer>().material = y;
-			}
-		}
-	}
+        public void SetColor(int number)
+        {
+            if (number == 1)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = r;
+            }
+            if (number == 2)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = g;
+            }
+            if (number == 3)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = b;
+            }
+            if (number == 4)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = y;
+            }
+        }
+    }
 }
 

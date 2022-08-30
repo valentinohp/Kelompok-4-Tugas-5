@@ -14,35 +14,25 @@ namespace Paintastic.Player
 
         [SerializeField] private GameObject gridManager;
 
-        PlayerControlScript playerControl;
+        private PlayerControlScript playerControl;
 
         [SerializeField] private float counter;
         private float orCounter;
 
         [SerializeField] private GameObject target;
-
         [SerializeField] private int tilePos;
 
         private GridContainer gridcont;
-
         private float speed;
-
         private int playerIndex;
-
         private int otherA, otherB, otherC;
-
-
         [SerializeField] private bool playerCanMove;
-
         private int gridsize;
-
         private int materialIndex;
-
         private Material playerMat;
-
         private GameObject childObj;
-        // Start is called before the first frame update
-        void Start()
+
+        private void Start()
         {
             gridManager = GameObject.Find("GridManager");
             playerControl = gridManager.GetComponent<PlayerControlScript>();
@@ -54,10 +44,8 @@ namespace Paintastic.Player
 
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
             MoveToTarget();
 
             if (transform.position == target.transform.position)
@@ -186,7 +174,6 @@ namespace Paintastic.Player
 
         private void ChangeTile()
         {
-
             MeshRenderer tilerender = target.GetComponent<MeshRenderer>();
             tilerender.material = playerMat;
 
@@ -219,12 +206,12 @@ namespace Paintastic.Player
                 {
 
                 }
+
                 else
                 {
                     gridcont.P1Tile.Add(target);
                     return;
                 }
-
             }
 
             if (gameObject.name == "PLAYER2")
@@ -251,12 +238,12 @@ namespace Paintastic.Player
                 {
 
                 }
+
                 else
                 {
                     gridcont.P2Tile.Add(target);
                     return;
                 }
-
             }
 
             if (gameObject.name == "PLAYER3")
@@ -283,12 +270,12 @@ namespace Paintastic.Player
                 {
 
                 }
+
                 else
                 {
                     gridcont.P3Tile.Add(target);
                     return;
                 }
-
             }
 
             if (gameObject.name == "PLAYER4")
@@ -315,12 +302,12 @@ namespace Paintastic.Player
                 {
 
                 }
+
                 else
                 {
                     gridcont.P4Tile.Add(target);
                     return;
                 }
-
             }
         }
 
@@ -366,7 +353,6 @@ namespace Paintastic.Player
             PlayerChildAnim playeranim = childObj.GetComponent<PlayerChildAnim>();
             playeranim.SetIdle();
         }
-
     }
 }
 
