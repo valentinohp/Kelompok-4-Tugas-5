@@ -17,12 +17,14 @@ namespace Paintastic.Pickable
         private GameObject _collectPoint;
         [SerializeField] private Timer _timer;
         private List<GameObject> _items = new List<GameObject>();
+        private ScoreManager _scoreManager;
 
         private void Start()
         {
             _timer.OnTimerEnd += SpawnItem;
             _gridContainer = GetComponent<GridContainer>();
             _playerControlScript = GetComponent<PlayerControlScript>();
+            _scoreManager = GetComponent<ScoreManager>();
             _bomb = Instantiate(_bombPrefab);
             _collectPoint = Instantiate(_collectPointPrefab);
             _bomb.SetActive(false);
@@ -69,6 +71,16 @@ namespace Paintastic.Pickable
         {
             item.SetActive(false);
             _gridContainer.ClearTile((List<GameObject>)_gridContainer.GetType().GetField($"P{playerIndex + 1}Tile").GetValue(_gridContainer));
+            
+            if(item.tag == "collect")
+            {
+                CollectPoint(playerIndex);
+            }
+        }
+
+        private void CollectPoint(int playerIndex)
+        {
+            _scoreManager.AddPoint(playerIndex);
         }
     }
 }
