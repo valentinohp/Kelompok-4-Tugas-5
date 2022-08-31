@@ -14,9 +14,9 @@ namespace Paintastic.Player
             playersList.Add(player);
         }
 
-        public void AddPlayerTarget(GameObject target)
+        public void AddPlayerTarget(GameObject target, int playerIndex)
         {
-            PlayerTarget.Add(target);
+            PlayerTarget[playerIndex] =target;
         }
     }
 }

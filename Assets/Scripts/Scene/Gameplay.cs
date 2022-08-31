@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Paintastic.Score;
 
 namespace Paintastic.Scene.Gameplay
 {
@@ -11,15 +12,21 @@ namespace Paintastic.Scene.Gameplay
     {
         public static UnityAction OnGameplay;
         public static UnityAction<int, Color> OnGameOver;
+        public static UnityAction OnItemTimerEnd;
 
         [SerializeField] private Timer _gameTimer;
         [SerializeField] private Timer _playerOneTimer;
         [SerializeField] private Timer _playerTwoTimer;
         [SerializeField] private TMP_Text _remainingTime;
 
+        private ScoreManager _scoreManager;
+
         private void Start()
         {
+            _scoreManager = GetComponent<ScoreManager>();
             _gameTimer.OnTimerEnd += GameOver;
+            _playerOneTimer.OnTimerEnd += DeactiveDoubleScore;
+            _playerTwoTimer.OnTimerEnd += DeactiveDoubleScore;
             StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
         }
 
@@ -43,7 +50,7 @@ namespace Paintastic.Scene.Gameplay
             OnGameplay?.Invoke();
         }
 
-        private void GameOver()
+        private void GameOver(int x)
         {
             // TODO: change winner index from score and color
             OnGameOver?.Invoke(1, Color.red);
@@ -71,5 +78,23 @@ namespace Paintastic.Scene.Gameplay
         {
             // TODO
         }
+
+        public void PlayerTimer(int playerIndex)
+        { 
+            if(playerIndex == 0)
+            {
+                _playerOneTimer.StartTimer();
+            }
+            if(playerIndex == 1)
+            {
+                _playerTwoTimer.StartTimer();
+            }
+        }
+
+        private void DeactiveDoubleScore(int playerIndex)
+        {
+            _scoreManager.DeactiveDoubleScore(playerIndex);
+        }
     }
+
 }

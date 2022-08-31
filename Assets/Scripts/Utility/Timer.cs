@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Text.RegularExpressions;
 
 namespace Paintastic.Utility
 {
     public class Timer : MonoBehaviour
     {
-        public UnityAction OnTimerEnd;
+        public UnityAction<int> OnTimerEnd;
         [SerializeField] private float _duration;
         private bool _isRunning;
         private float _time;
@@ -33,7 +34,23 @@ namespace Paintastic.Utility
         public void EndTimer()
         {
             _isRunning = false;
-            OnTimerEnd?.Invoke();
+
+            
+
+            if(gameObject.tag == "Player Timer")
+            {
+
+                string gameObjectName = gameObject.name;
+                string playerName = Regex.Replace(gameObjectName, "[^0-9]", "");
+                int playerNumber = int.Parse(playerName);
+                OnTimerEnd?.Invoke(playerNumber-1);
+            }
+
+            else
+            {
+                OnTimerEnd?.Invoke(0);
+            }
+
         }
 
         public float GetDuration()

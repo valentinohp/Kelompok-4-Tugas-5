@@ -4,6 +4,8 @@ using Paintastic.Grid;
 using Paintastic.Player;
 using Paintastic.Utility;
 using UnityEngine;
+using Paintastic.Score;
+using Paintastic.Scene.Gameplay;
 
 namespace Paintastic.Pickable
 {
@@ -17,12 +19,18 @@ namespace Paintastic.Pickable
         private GameObject _collectPoint;
         [SerializeField] private Timer _timer;
         private List<GameObject> _items = new List<GameObject>();
+        private ScoreManager _scoreManager;
+        private Gameplay _gameplay;
+        private Spawner _spawner;
 
         private void Start()
         {
             _timer.OnTimerEnd += SpawnItem;
             _gridContainer = GetComponent<GridContainer>();
             _playerControlScript = GetComponent<PlayerControlScript>();
+            _gameplay = GetComponent<Gameplay>();
+            _scoreManager = GetComponent<ScoreManager>();
+            _spawner = GetComponent<Spawner>();
             _bomb = Instantiate(_bombPrefab);
             _collectPoint = Instantiate(_collectPointPrefab);
             _bomb.SetActive(false);
@@ -50,7 +58,7 @@ namespace Paintastic.Pickable
             }
         }
 
-        private void SpawnItem()
+        private void SpawnItem(int x)
         {
             for (int i = 0; i < _items.Count; i++)
             {
@@ -67,8 +75,28 @@ namespace Paintastic.Pickable
 
         private void DespawnItem(GameObject item, int playerIndex)
         {
+            CollectPoint(playerIndex, item);
             item.SetActive(false);
             _gridContainer.ClearTile((List<GameObject>)_gridContainer.GetType().GetField($"P{playerIndex + 1}Tile").GetValue(_gridContainer));
+            
+          
+        }
+
+        private void CollectPoint(int playerIndex, GameObject item)
+        {
+            if (item.tag == "collect")
+            {
+                _scoreManager.AddPoint(playerIndex);
+                _gameplay.PlayerTimer(playerIndex);
+                _scoreManager.ActivateDoubleScore(playerIndex);
+            }
+
+            else
+            {
+
+                _scoreManager.DeactiveDoubleScore(playerIndex);
+            }
+            
         }
     }
 }
