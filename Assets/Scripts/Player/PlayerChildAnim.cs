@@ -15,12 +15,12 @@ namespace Paintastic.Player
 
         public void SetJump()
         {
-            _animator.SetBool("isJump", true);
+            _animator?.SetBool("isJump", true);
         }
 
         public void SetIdle()
         {
-            _animator.SetBool("isJump", false);
+            _animator?.SetBool("isJump", false);
         }
     }
 }
