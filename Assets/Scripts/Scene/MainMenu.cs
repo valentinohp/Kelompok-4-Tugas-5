@@ -11,13 +11,17 @@ namespace Paintastic.Scene.MainMenu
 
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _settingsButton;
+        [SerializeField] private Button _matchHistory;
         [SerializeField] private GameObject _colorSelect;
+        [SerializeField] private GameObject _popupSettings;
+        [SerializeField] private GameObject _popupMatchHistory;
 
         private void Start()
         {
             OnMainMenu?.Invoke();
             _playButton.onClick.AddListener(OnPlayButtonClick);
             _settingsButton.onClick.AddListener(OnSettingsButtonClick);
+            _matchHistory.onClick.AddListener(OnMatchHistoryClick);
         }
 
         private void OnPlayButtonClick()
@@ -25,9 +29,14 @@ namespace Paintastic.Scene.MainMenu
             _colorSelect.SetActive(true);
         }
 
-        public void OnSettingsButtonClick()
+        private void OnSettingsButtonClick()
         {
-            Debug.Log("settings clicked");
+            _popupSettings.SetActive(true);
+        }
+
+        private void OnMatchHistoryClick()
+        {
+            _popupMatchHistory.SetActive(true);
         }
     }
 }
