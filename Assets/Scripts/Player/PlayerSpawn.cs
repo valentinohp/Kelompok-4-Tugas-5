@@ -49,7 +49,7 @@ namespace Paintastic.Player
                 playercontrol.AddPlayer(player);
 
                 SetKeyCode(i);
-                playercontrol.AddPlayerTarget(gridcontainer.Poles[playerPoles]);
+                playercontrol.AddPlayerTarget(gridcontainer.Poles[playerPoles], i);
 
                 ColorManager clrmngr = gameObject.GetComponent<ColorManager>();
                 // Material colormat = clrmngr.colorMaterial[i];

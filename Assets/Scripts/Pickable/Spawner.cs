@@ -69,18 +69,20 @@ namespace Paintastic.Pickable
 
         private void DespawnItem(GameObject item, int playerIndex)
         {
+            CollectPoint(playerIndex, item);
             item.SetActive(false);
             _gridContainer.ClearTile((List<GameObject>)_gridContainer.GetType().GetField($"P{playerIndex + 1}Tile").GetValue(_gridContainer));
             
-            if(item.tag == "collect")
-            {
-                CollectPoint(playerIndex);
-            }
+          
         }
 
-        private void CollectPoint(int playerIndex)
+        private void CollectPoint(int playerIndex, GameObject item)
         {
-            _scoreManager.AddPoint(playerIndex);
+            if (item.tag == "collect")
+            {
+                _scoreManager.AddPoint(playerIndex);
+            }
+            
         }
     }
 }

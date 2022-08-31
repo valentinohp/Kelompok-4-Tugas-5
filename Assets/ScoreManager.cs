@@ -7,36 +7,52 @@ namespace Paintastic.Pickable
 {
     public class ScoreManager : MonoBehaviour
     {
-        [SerializeField]
-        private List<int> playersScore;
-        [SerializeField]
-        private List<int> playerTilesCount;
+        public List<int> playersScore;
+     
         private GridContainer _gridContainer;
 
     // Start is called before the first frame update
     void Start()
         {
-
+            CreateScoreIndex();
             _gridContainer = GetComponent<GridContainer>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            UpdateTiles();
+           
         }
 
         public void AddPoint(int playerIndex)
         {
+            switch (playerIndex)
+            {
+                case 3:
+                    playersScore[playerIndex] += _gridContainer.P4Tile.Count;
+                    break;
+                case 2:
+                    playersScore[playerIndex] += _gridContainer.P3Tile.Count;
+                    break;
+                case 1:
+                    playersScore[playerIndex] += _gridContainer.P2Tile.Count;
+                    break;
+                case 0:
+                    playersScore[playerIndex] += _gridContainer.P1Tile.Count;
+                    break;
+                default:
+                    Debug.Log("wrong player index");
+                    break;
 
-            playersScore[playerIndex] += playerTilesCount[playerIndex];
+            }
         }
-        private void UpdateTiles()
+
+        private void CreateScoreIndex()
         {
-            playerTilesCount[3] = _gridContainer.P4Tile.Count;
-            playerTilesCount[2] = _gridContainer.P3Tile.Count;
-            playerTilesCount[1] = _gridContainer.P2Tile.Count;
-            playerTilesCount[0] = _gridContainer.P1Tile.Count;
+            for(int i = 0; i < 4; i++)
+            {
+                playersScore.Add(0);
+            }
         }
     }
 }
