@@ -24,16 +24,30 @@ namespace Paintastic.Scene.Gameplay
         private ScoreManager _scoreManager;
         private PlayerControlScript _playerControlScript;
 
+        [SerializeField] private Button _pauseButton;
+        [SerializeField] private Button _unpauseButton;
+        [SerializeField] private Button _playButton;
+        [SerializeField] private GameObject _tutorialPanel;
+        [SerializeField] private GameObject _pausePanel;
+
+
         private void Start()
         {
             _scoreManager = GetComponent<ScoreManager>();
             _playerControlScript = GetComponent<PlayerControlScript>();
             _gameTimer.OnTimerEnd += GameOver;
+
+            _pauseButton.onClick.AddListener(OnPause);
+            _unpauseButton.onClick.AddListener(OnUnPause);
+            _playButton.onClick.AddListener(OnPlayGame);
+
             for (int i = 0; i < _playerTimers.Length; i++)
             {
                 _playerTimers[i].OnTimerEnd += DeactiveDoubleScore;
             }
-            StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
+            Time.timeScale = 0;
+
+            
         }
 
         private void Update()
@@ -118,6 +132,23 @@ namespace Paintastic.Scene.Gameplay
         private void DeactiveDoubleScore(int playerIndex)
         {
             _scoreManager.DeactiveDoubleScore(playerIndex);
+        }
+
+        private void OnPause()
+        {
+            _pausePanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+        private void OnUnPause()
+        {
+            _pausePanel.SetActive(false);
+            Time.timeScale = 1;
+        }
+        private void OnPlayGame()
+        {
+            _tutorialPanel.SetActive(false);
+            Time.timeScale = 1;
+            StartGame();
         }
     }
 }

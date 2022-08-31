@@ -14,7 +14,7 @@ namespace Paintastic.Grid
 
         private void Start()
         {
-            GenerateGrid(_size, _size);
+            StartGame();
         }
 
         private void OnEnable()
@@ -24,27 +24,13 @@ namespace Paintastic.Grid
 
         private void OnDisable()
         {
-            //foreach (GameObject go in gridGame)
-            //{
-            //	go.gameObject.GetComponent<DetectPlayer>().OnCollectPointPicked -= OnCollcectPointPicked;
-            //}
+            
         }
 
-        //private void OnCollcectPointPicked(GameObject _gameObject)
-        //{
-        //	foreach (GameObject go in grid)
-        //	{
-        //		//kirim score
-        //		//reset warna
-        //		if (go.CompareTag(_gameObject.tag))
-        //		{
-        //			playerScore += 1;
-        //			ResetColor(go);
-        //		}
-        //	}
-        //	OnPlayerTilesCount?.Invoke(_gameObject.tag, playerScore);
-        //	playerScore = 0;
-        //}
+        public void StartGame()
+        {
+            GenerateGrid(_size, _size);
+        }
 
         private void GenerateGrid(int height, int width)
         {
@@ -63,16 +49,7 @@ namespace Paintastic.Grid
                     container.AddToList(_grid[x, y], _size);
                 }
             }
-            //player1.SetInit(player2, gridGame, new Vector2Int(0, 0));
-            //player2.SetInit(player1, gridGame, new Vector2Int(gridGame.GetLength(0) - 1, gridGame.GetLength(1) - 1));
         }
-
-        //private void ResetColor(GameObject go)
-        //{
-        //	//Debug.Log(go.tag);
-        //	go.GetComponent<MeshRenderer>().material.color = Color.white;
-        //	go.tag = "Tile";
-        //}
     }
 }
 
