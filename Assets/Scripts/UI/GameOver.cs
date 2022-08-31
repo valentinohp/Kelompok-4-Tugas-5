@@ -15,10 +15,16 @@ namespace Paintastic.UI
         [SerializeField] private Image _winnerColor;
         [SerializeField] private TMP_Text _winnerText;
 
-        private void Start()
+        private void OnEnable()
         {
-            Gameplay.OnGameOver += SetWinner; 
+            Gameplay.OnGameOver += SetWinner;
             _backToMenu.onClick.AddListener(BackToMenu);
+        }
+
+        private void OnDisable()
+        {
+            Gameplay.OnGameOver -= SetWinner;
+            _backToMenu.onClick.RemoveListener(BackToMenu);
         }
 
         private void BackToMenu()
@@ -29,7 +35,10 @@ namespace Paintastic.UI
         private void SetWinner(int playerIndex, Color playerColor)
         {
             _winnerColor.color = playerColor;
-            _winnerText.text = $"Player {playerIndex+1} Win!";
+            if (playerIndex == -1)
+                _winnerText.text = "Draw!";
+            else
+                _winnerText.text = $"Player {playerIndex + 1} Win!";
             _gameOver.SetActive(true);
         }
     }

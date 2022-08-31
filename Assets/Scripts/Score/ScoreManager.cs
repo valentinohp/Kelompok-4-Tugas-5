@@ -2,30 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Paintastic.Grid;
-using Paintastic.Pickable;
+using TMPro;
 
 namespace Paintastic.Score
 {
     public class ScoreManager : MonoBehaviour
     {
         public List<int> playersScore;
-     
+        public List<bool> _isDoubleScore;
         private GridContainer _gridContainer;
 
-        public List<bool> _isDoubleScore;
-
-
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             CreateScoreIndex();
             _gridContainer = GetComponent<GridContainer>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-           
         }
 
         public void AddPoint(int playerIndex)
@@ -52,19 +42,16 @@ namespace Paintastic.Score
                 default:
                     Debug.Log("wrong player index");
                     break;
-
             }
         }
 
         public void ActivateDoubleScore(int playerIndex)
         {
-            Debug.Log("bisaa");
             _isDoubleScore[playerIndex] = true;
         }
 
         public void DeactiveDoubleScore(int playerIndex)
         {
-            Debug.Log("deactive" + playerIndex);
             _isDoubleScore[playerIndex] = false;
         }
 

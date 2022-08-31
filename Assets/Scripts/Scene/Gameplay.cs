@@ -3,8 +3,10 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Paintastic.Score;
+using System.Collections.Generic;
+using Paintastic.Player;
 
 namespace Paintastic.Scene.Gameplay
 {
@@ -15,18 +17,22 @@ namespace Paintastic.Scene.Gameplay
         public static UnityAction OnItemTimerEnd;
 
         [SerializeField] private Timer _gameTimer;
-        [SerializeField] private Timer _playerOneTimer;
-        [SerializeField] private Timer _playerTwoTimer;
         [SerializeField] private TMP_Text _remainingTime;
-
+        [SerializeField] private Timer[] _playerTimers;
+        [SerializeField] private TMP_Text[] _playerScoreText;
+        [SerializeField] private Slider[] _playerTimeSliders;
         private ScoreManager _scoreManager;
+        private PlayerControlScript _playerControlScript;
 
         private void Start()
         {
             _scoreManager = GetComponent<ScoreManager>();
+            _playerControlScript = GetComponent<PlayerControlScript>();
             _gameTimer.OnTimerEnd += GameOver;
-            _playerOneTimer.OnTimerEnd += DeactiveDoubleScore;
-            _playerTwoTimer.OnTimerEnd += DeactiveDoubleScore;
+            for (int i = 0; i < _playerTimers.Length; i++)
+            {
+                _playerTimers[i].OnTimerEnd += DeactiveDoubleScore;
+            }
             StartGame(); // placeholder, use Tutorial.OnGameplayStart when available
         }
 
@@ -42,6 +48,23 @@ namespace Paintastic.Scene.Gameplay
                 timeSpan = TimeSpan.FromSeconds(0);
             }
             _remainingTime.text = "Remaining Time: " + timeSpan.ToString(@"m\:ss");
+
+            for (int i = 0; i < _playerScoreText.Length; i++)
+            {
+                _playerScoreText[i].text = _scoreManager.playersScore[i].ToString();
+            }
+
+            for (int i = 0; i < _playerTimeSliders.Length; i++)
+            {
+                if (_playerTimers[i].GetIsRunning())
+                {
+                    _playerTimeSliders[i].value = _playerTimers[i].GetRemainingTime() / _playerTimers[i].GetDuration();
+                }
+                else
+                {
+                    _playerTimeSliders[i].gameObject.SetActive(false);
+                }
+            }
         }
 
         private void StartGame()
@@ -50,45 +73,46 @@ namespace Paintastic.Scene.Gameplay
             OnGameplay?.Invoke();
         }
 
-        private void GameOver(int x)
+        private void GameOver(int unused)
         {
-            // TODO: change winner index from score and color
-            OnGameOver?.Invoke(1, Color.red);
-        }
+            int winnerIndex = -1;
+            int winnerScore = -1;
+            Color winnerColor = Color.grey;
+            List<int> playerScore = _scoreManager.playersScore;
 
-        private void PickupItem(string itemName, int player)
-        {
-            if (itemName == "CollectPoint")
+            for (int i = 0; i < _playerTimers.Length; i++)
             {
-                CollectPoint(player);
+                if (playerScore[i] > winnerScore)
+                {
+                    winnerIndex = i;
+                    winnerScore = playerScore[i];
+                }
             }
-        }
 
-        private void SpawnCollectPoint()
-        {
-            // TODO
-        }
+            winnerColor = _playerControlScript.playersList[winnerIndex].GetComponent<PlayerScript>().GetPlayerMaterial().color;
 
-        private void SpawnBomb()
-        {
-            // TODO
-        }
+            for (int i = 0; i < playerScore.Count; i++)
+            {
+                if (i == winnerIndex)
+                {
+                    continue;
+                }
 
-        private void CollectPoint(int player)
-        {
-            // TODO
+                if (playerScore[i] == winnerScore)
+                {
+                    winnerIndex = -1;
+                    winnerColor = Color.grey;
+                    break;
+                }
+            }
+
+            OnGameOver?.Invoke(winnerIndex, winnerColor);
         }
 
         public void PlayerTimer(int playerIndex)
-        { 
-            if(playerIndex == 0)
-            {
-                _playerOneTimer.StartTimer();
-            }
-            if(playerIndex == 1)
-            {
-                _playerTwoTimer.StartTimer();
-            }
+        {
+            _playerTimers[playerIndex].StartTimer();
+            _playerTimeSliders[playerIndex].gameObject.SetActive(true);
         }
 
         private void DeactiveDoubleScore(int playerIndex)
@@ -96,5 +120,4 @@ namespace Paintastic.Scene.Gameplay
             _scoreManager.DeactiveDoubleScore(playerIndex);
         }
     }
-
 }
