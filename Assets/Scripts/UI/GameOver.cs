@@ -26,9 +26,9 @@ namespace Paintastic.UI
             SceneManager.LoadScene("Main Menu");
         }
 
-        private void SetWinner(int playerIndex, Color playerColor)
+        private void SetWinner(int playerIndex, string colorindex)
         {
-            _winnerColor.color = playerColor;
+            _winnerColor.color = colorindex.ToColor();
             _winnerText.text = $"Player {playerIndex+1} Win!";
             _gameOver.SetActive(true);
         }

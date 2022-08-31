@@ -2,6 +2,7 @@ using Paintastic.Grid;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paintastic.Score;
 
 namespace Paintastic.Player
 {
@@ -23,8 +24,11 @@ namespace Paintastic.Player
 
         private ColorManager _colormanager;
 
+        private ScoreManager _scoreManager;
+
         private void Start()
         {
+            _scoreManager = GetComponent<ScoreManager>();
             _colormanager = GetComponent<ColorManager>();
         }
         public void SpawnPlayer(GameObject p1Pos, GameObject p2Pos, int gridsize)
@@ -54,6 +58,7 @@ namespace Paintastic.Player
                 ColorManager clrmngr = gameObject.GetComponent<ColorManager>();
                 // Material colormat = clrmngr.colorMaterial[i];
                 Material colormat = clrmngr.colorMaterial[PlayerPrefs.GetInt($"player{i + 1}")];
+                CreatePlayerColorName(colormat.name);
 
                 PlayerScript playerscript = player.GetComponent<PlayerScript>();
                 playerscript.SpawnSet(_playerSpeed, _playerMoveTimer, _upkey, _leftkey, _downkey, _rightkey, i, gridsize, gridcontainer.Poles[playerPoles], playerPoles, colormat);
@@ -79,6 +84,11 @@ namespace Paintastic.Player
             _leftkey = playerMovement.players[i].UpLeftDownRight[1];
             _downkey = playerMovement.players[i].UpLeftDownRight[2];
             _rightkey = playerMovement.players[i].UpLeftDownRight[3];
+        }
+
+        private void CreatePlayerColorName(string colorname)
+        {
+            _scoreManager.CreateColor(colorname.ToLower());
         }
     }
 }

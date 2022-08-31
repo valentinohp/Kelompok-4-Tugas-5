@@ -60,7 +60,7 @@ namespace Paintastic.Grid
                     _grid[x, y].GetComponent<GridCell>().SetPosition(x, y);
                     _grid[x, y].transform.parent = transform;
                     GridContainer container = gameObject.GetComponent<GridContainer>();
-                    container.AddToList(_grid[x, y], _size);
+                    container.AddToList(_grid[x, y], _size);    
                 }
             }
             //player1.SetInit(player2, gridGame, new Vector2Int(0, 0));

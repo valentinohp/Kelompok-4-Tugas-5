@@ -11,13 +11,17 @@ namespace Paintastic.Scene.Gameplay
     public class Gameplay : MonoBehaviour
     {
         public static UnityAction OnGameplay;
-        public static UnityAction<int, Color> OnGameOver;
+        public static UnityAction<int, string> OnGameOver;
         public static UnityAction OnItemTimerEnd;
 
         [SerializeField] private Timer _gameTimer;
         [SerializeField] private Timer _playerOneTimer;
         [SerializeField] private Timer _playerTwoTimer;
         [SerializeField] private TMP_Text _remainingTime;
+
+        private int _currentWinner;
+
+        private string _winnerColor;
 
         private ScoreManager _scoreManager;
 
@@ -53,8 +57,10 @@ namespace Paintastic.Scene.Gameplay
         private void GameOver(int x)
         {
             // TODO: change winner index from score and color
-            OnGameOver?.Invoke(1, Color.red);
+            OnGameOver?.Invoke(_currentWinner, _winnerColor);
         }
+
+
 
         private void PickupItem(string itemName, int player)
         {
@@ -94,6 +100,12 @@ namespace Paintastic.Scene.Gameplay
         private void DeactiveDoubleScore(int playerIndex)
         {
             _scoreManager.DeactiveDoubleScore(playerIndex);
+        }
+
+        public void UpdateCurrentWinner(int playerIndex, string colorname)
+        {
+            _currentWinner = playerIndex;
+            _winnerColor = colorname;
         }
     }
 

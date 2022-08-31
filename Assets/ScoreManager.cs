@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Paintastic.Grid;
 using Paintastic.Pickable;
+using Paintastic.Scene.Gameplay;
 
 namespace Paintastic.Score
 {
@@ -14,12 +15,16 @@ namespace Paintastic.Score
 
         public List<bool> _isDoubleScore;
 
+        public List<string> playerColor;
+
+        private Gameplay _gameplay;
 
         // Start is called before the first frame update
         void Start()
         {
             CreateScoreIndex();
             _gridContainer = GetComponent<GridContainer>();
+            _gameplay = GetComponent<Gameplay>();
         }
 
         // Update is called once per frame
@@ -54,6 +59,8 @@ namespace Paintastic.Score
                     break;
 
             }
+
+            CalculateWinner();
         }
 
         public void ActivateDoubleScore(int playerIndex)
@@ -75,6 +82,21 @@ namespace Paintastic.Score
                 _isDoubleScore.Add(false);
                 playersScore.Add(0);
             }
+        }
+
+        private void CalculateWinner()
+        {
+            var maxValue = Mathf.Max(playersScore.ToArray());
+
+            int playerIndex = playersScore.IndexOf(maxValue);
+
+            _gameplay.UpdateCurrentWinner(playerIndex, playerColor[playerIndex]);
+        }
+
+        public void CreateColor(string colorname)
+        {
+            Debug.Log(colorname);
+            playerColor.Add(colorname);
         }
     }
 }
