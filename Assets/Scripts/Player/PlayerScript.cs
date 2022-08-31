@@ -353,6 +353,11 @@ namespace Paintastic.Player
             PlayerChildAnim playeranim = childObj.GetComponent<PlayerChildAnim>();
             playeranim.SetIdle();
         }
+
+        public Material GetPlayerMaterial()
+        {
+            return playerMat;
+        }
     }
 }
 
