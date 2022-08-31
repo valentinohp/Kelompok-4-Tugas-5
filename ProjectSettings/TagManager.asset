@@ -12,6 +12,9 @@ TagManager:
   - p2tile
   - P3
   - P4
+  - bomb
+  - collect
+  - Player Timer
   layers:
   - Default
   - TransparentFX
