@@ -17,7 +17,7 @@ namespace Paintastic.Global.MatchHistory
         private string _saveFile;
         [SerializeField] private MatchHistoryUI _ui;
 
-        MatchHistory mathcHistory = new MatchHistory();
+        public MatchHistory matchHistory = new MatchHistory();
 
         public static MatchHistoryManager instance;
 
@@ -52,14 +52,14 @@ namespace Paintastic.Global.MatchHistory
             if(File.Exists(_saveFile) && _ui != null)
             {
                 string fileContents = File.ReadAllText(_saveFile);
-                mathcHistory = JsonUtility.FromJson<MatchHistory>(fileContents);
-                _ui.GetData(mathcHistory.WinHistory);
+                matchHistory = JsonUtility.FromJson<MatchHistory>(fileContents);
+                _ui.GetData(matchHistory.WinHistory);
             }
         }
 
         private void SaveMatchHistory()
         {
-            string json = JsonUtility.ToJson(mathcHistory);
+            string json = JsonUtility.ToJson(matchHistory);
             File.WriteAllText(_saveFile, json);
         }
 
@@ -67,7 +67,7 @@ namespace Paintastic.Global.MatchHistory
         {
             if (winner != -1)
             {
-                mathcHistory.WinHistory[winner]++;
+                matchHistory.WinHistory[winner]++;
                 SaveMatchHistory();
             }
         }
