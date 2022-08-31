@@ -28,11 +28,16 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private Button _startGame;
         [SerializeField] private List<ColorSelect> _colorSelects;
 
+        [SerializeField] private Button _tutorial;
+
+        [SerializeField] private GameObject _tutorialPage;
+
         private void Start()
         {
             ColorSelects = _colorSelects.Count;
             _backToMenu.onClick.AddListener(OnHideColorSelect);
             _startGame.onClick.AddListener(OnStartGame);
+            _tutorial.onClick.AddListener(OnTutorial);
             AddPlayerColorList();
         }
 
@@ -96,6 +101,11 @@ namespace Paintastic.UI.ColorSelect
         {
             SceneManager.LoadScene("Gameplay");
             OnStartGameEvent?.Invoke();
+        }
+
+        private void OnTutorial()
+        {
+            _tutorialPage.SetActive(true);
         }
     }
 }
