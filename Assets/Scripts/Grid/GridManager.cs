@@ -2,80 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+namespace Paintastic.Grid
 {
-	[SerializeField] private GameObject gridCell;
-	private GameObject[,] grid;
+    public class GridManager : MonoBehaviour
+    {
+        [SerializeField] private GameObject _gridCell;
+        private GameObject[,] _grid;
 
-	private int height = 8;
-	private int width = 8;
-	private float space = 3.5f;
-	//private int i = 0;
+        [SerializeField] private int _size;
+        private float _space = 3.5f;
 
-	
-	private int playerScore = 0;
+        private void Start()
+        {
+            StartGame();
+        }
 
-	public event System.Action<string, int> OnPlayerTilesCount;
+        private void OnEnable()
+        {
 
-	void Start()
-	{
-		GenerateGrid();
-		
-	}
-	private void OnEnable()
-	{
+        }
 
-	}
-	private void OnDisable()
-	{
-		//foreach (GameObject go in gridGame)
-		//{
-		//	go.gameObject.GetComponent<DetectPlayer>().OnCollectPointPicked -= OnCollcectPointPicked;
-		//}
-	}
+        private void OnDisable()
+        {
+            
+        }
 
-	//private void OnCollcectPointPicked(GameObject _gameObject)
-	//{
-	//	foreach (GameObject go in grid)
-	//	{
-	//		//kirim score
-	//		//reset warna
-	//		if (go.CompareTag(_gameObject.tag))
-	//		{
-	//			playerScore += 1;
-	//			ResetColor(go);
-	//		}
-	//	}
-	//	OnPlayerTilesCount?.Invoke(_gameObject.tag, playerScore);
-	//	playerScore = 0;
-	//}
+        public void StartGame()
+        {
+            GenerateGrid(_size, _size);
+        }
 
-	private void GenerateGrid()
-	{
-		grid = new GameObject[height, width];
-		int numbering = 1;
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				grid[x, y] = Instantiate(gridCell, new Vector3(x * space, 0, y * space), Quaternion.identity);
-				grid[x, y].gameObject.name = "Tile" + numbering.ToString();
-				numbering += 1;
-				grid[x, y].GetComponent<GridCell>().SetPosition(x, y);
-				grid[x, y].transform.parent = transform;
-				GridContainer container = gameObject.GetComponent<GridContainer>();
-				container.AddToList(grid[x, y]);
-			}
-		}
-		//player1.SetInit(player2, gridGame, new Vector2Int(0, 0));
-		//player2.SetInit(player1, gridGame, new Vector2Int(gridGame.GetLength(0) - 1, gridGame.GetLength(1) - 1));
-	}
-	//private void ResetColor(GameObject go)
-	//{
-	//	//Debug.Log(go.tag);
-	//	go.GetComponent<MeshRenderer>().material.color = Color.white;
-	//	go.tag = "Tile";
-	//}
-
+        private void GenerateGrid(int height, int width)
+        {
+            _grid = new GameObject[height, width];
+            int numbering = 1;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    _grid[x, y] = Instantiate(_gridCell, new Vector3(x * _space, 0, y * _space), Quaternion.identity);
+                    _grid[x, y].gameObject.name = "Tile" + numbering.ToString();
+                    numbering += 1;
+                    _grid[x, y].GetComponent<GridCell>().SetPosition(x, y);
+                    _grid[x, y].transform.parent = transform;
+                    GridContainer container = gameObject.GetComponent<GridContainer>();
+                    container.AddToList(_grid[x, y], _size);
+                }
+            }
+        }
+    }
 }
+
 

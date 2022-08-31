@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a2c92916eceeab48b2e96662742d184, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  _backgroundMusic:
+  - _soundName: OnMainMenu
+    _clip: {fileID: 8300000, guid: 04ede7b868e181b4fa7e4f43d01d8fb6, type: 3}
+  - _soundName: OnGameplay
+    _clip: {fileID: 8300000, guid: 0dddc884e0be40b4592dcef286be2716, type: 3}
+  _soundsFx:
+  - _soundName: OnPlayerMove
+    _clip: {fileID: 0}
+    _volume: 0.901
+    isLoop: 1
+  - _soundName: OnCollectPoint
+    _clip: {fileID: 0}
+    _volume: 0.863
+    isLoop: 0
+  - _soundName: OnCollideBomb
+    _clip: {fileID: 0}
+    _volume: 0.736
+    isLoop: 0
+  - _soundName: OnGameOver
+    _clip: {fileID: 0}
+    _volume: 0.853
+    isLoop: 0

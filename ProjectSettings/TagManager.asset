@@ -4,13 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
   - Tile
   - Player2
   - P1
   - P2
   - p1tile
   - p2tile
+  - P3
+  - P4
+  - bomb
+  - collect
+  - Player Timer
   layers:
   - Default
   - TransparentFX
