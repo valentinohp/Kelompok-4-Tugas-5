@@ -16,12 +16,12 @@ namespace Paintastic.UI.ColorSelect
 
         public static Color[] Colors = new Color[]
         {
-            Color.black,
-            Color.white,
             Color.red,
             Color.green,
             Color.blue,
-            Color.yellow
+            Color.yellow,
+            Color.white,
+            Color.black,
         };
 
         [SerializeField] private Button _backToMenu;
