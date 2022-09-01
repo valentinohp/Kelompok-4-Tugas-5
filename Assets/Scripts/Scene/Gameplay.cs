@@ -13,7 +13,7 @@ namespace Paintastic.Scene.Gameplay
     public class Gameplay : MonoBehaviour
     {
         public static UnityAction OnGameplay;
-        public static UnityAction<int, Color> OnGameOver;
+        public static UnityAction<int, Color, int> OnGameOver;
         public static UnityAction OnItemTimerEnd;
 
         [SerializeField] private Timer _gameTimer;
@@ -120,7 +120,7 @@ namespace Paintastic.Scene.Gameplay
                 }
             }
 
-            OnGameOver?.Invoke(winnerIndex, winnerColor);
+            OnGameOver?.Invoke(winnerIndex, winnerColor, _playerTimers.Length);
         }
 
         public void PlayerTimer(int playerIndex)

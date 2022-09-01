@@ -32,7 +32,7 @@ namespace Paintastic.UI
             SceneManager.LoadScene("Main Menu");
         }
 
-        private void SetWinner(int playerIndex, Color playerColor)
+        private void SetWinner(int playerIndex, Color playerColor, int numberOfPlayer)
         {
             _winnerColor.color = playerColor;
             if (playerIndex == -1)
