@@ -18,7 +18,7 @@ namespace Paintastic.UI.ColorSelect
         {
             Color.red,
             Color.green,
-            Color.blue,
+            new Color(0.6f, 1f, 1f),
             Color.yellow,
             Color.white,
             Color.black,
