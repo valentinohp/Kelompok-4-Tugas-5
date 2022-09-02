@@ -1,9 +1,9 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Paintastic.Global.MatchHistory;
+using TMPro;
 
 namespace Paintastic.UI.ColorSelect
 {
@@ -15,9 +15,12 @@ namespace Paintastic.UI.ColorSelect
         [SerializeField] private Button _playerNext;
         [SerializeField] private Button _playerPrev;
         [SerializeField] private Image _playerImage;
+        [SerializeField] private TMP_Text _playerLevelText;
+        [SerializeField] private Slider _xpSlider;
         [SerializeField] private int _indexPlayer;
         private bool[] _unlock = new bool[6];
         public int _playerColor;
+        private int _playerLevel;
 
         private void Start()
         {
@@ -29,9 +32,11 @@ namespace Paintastic.UI.ColorSelect
                 _unlock[i] = true;
             }
 
-            if (MatchHistoryManager.instance.matchHistory.WinHistory[_indexPlayer] >= 5)
+            ConvertXPToLevel();
+
+            if (_playerLevel >= 2)
                 _unlock[4] = true;
-            if (MatchHistoryManager.instance.matchHistory.WinHistory[_indexPlayer] >= 10)
+            if (_playerLevel >= 4)
                 _unlock[5] = true;
         }
 
@@ -75,6 +80,23 @@ namespace Paintastic.UI.ColorSelect
 
             OnCycle?.Invoke(_indexPlayer, _playerColor);
             _playerImage.color = ColorSelectManager.Colors[_playerColor];
+        }
+
+        private void ConvertXPToLevel()
+        {
+            _playerLevel = MatchHistoryManager.instance.matchHistory.PlayerXP[_indexPlayer] / 500 + 1;
+
+            if (_playerLevel > 50)
+            {
+                _playerLevelText.text = "Level MAX";
+                _xpSlider.value = 1f;
+            }
+            else
+            {
+                _playerLevelText.text = "Level " + _playerLevel;
+                _xpSlider.value = (MatchHistoryManager.instance.matchHistory.PlayerXP[_indexPlayer] % 500) / 500f;
+            }
+
         }
     }
 }

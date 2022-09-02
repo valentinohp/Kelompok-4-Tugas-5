@@ -10,6 +10,8 @@ namespace Paintastic.Global.MatchHistory
     public class MatchHistory 
     {
         public int[] WinHistory = new int[4];
+        public int[] PlayerXP = new int[4];
+        public bool ConvertWinToXP = false;
     }
 
     public class MatchHistoryManager : MonoBehaviour
@@ -35,6 +37,8 @@ namespace Paintastic.Global.MatchHistory
             
             _saveFile = Application.persistentDataPath + "/matchhistory.json";
             LoadMatchHistory();
+            if (!matchHistory.ConvertWinToXP)
+                ConvertWinToXP();
         }
 
         private void OnEnable()
@@ -63,14 +67,35 @@ namespace Paintastic.Global.MatchHistory
             File.WriteAllText(_saveFile, json);
         }
 
-        private void AddWin(int winner, Color color)
+        private void AddWin(int winner, Color color, int numberOfPlayer)
         {
             if (winner != -1)
             {
                 matchHistory.WinHistory[winner]++;
+                for (int i = 0; i < numberOfPlayer; i++)
+                {
+                    if (i == winner)
+                    {
+                        matchHistory.PlayerXP[i] += 100;
+                    }
+                    else
+                    {
+                        matchHistory.PlayerXP[i] += 50;
+                    }
+                }
                 SaveMatchHistory();
             }
         }
 
+        private void ConvertWinToXP()
+        {
+            for (int i = 0; i < matchHistory.PlayerXP.Length; i++)
+            {
+                matchHistory.PlayerXP[i] += matchHistory.WinHistory[i] * 100;
+            }
+            
+            matchHistory.ConvertWinToXP = true;
+            SaveMatchHistory();
+        }
     }
 }
