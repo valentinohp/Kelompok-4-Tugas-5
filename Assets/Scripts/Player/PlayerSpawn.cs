@@ -23,6 +23,7 @@ namespace Paintastic.Player
 
         private ColorManager _colormanager;
 
+
         private void Start()
         {
             _colormanager = GetComponent<ColorManager>();

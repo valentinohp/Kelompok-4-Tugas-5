@@ -3342,7 +3342,7 @@ MonoBehaviour:
   _collectPointPrefab: {fileID: 2941654237029910144, guid: 78c32315b2e8380449442a55d1f2244e, type: 3}
   _timer: {fileID: 473973025}
   _bombVFX: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
-  _collectVFX: {fileID: 1247311384876784, guid: 4adffb0018aeda44e9263f901167af1f, type: 3}
+  _collectVFX: {fileID: 1965343156803978, guid: 5e8e3e550f1b3f84f9283ca37a5b77c9, type: 3}
 --- !u!114 &1963695761
 MonoBehaviour:
   m_ObjectHideFlags: 0

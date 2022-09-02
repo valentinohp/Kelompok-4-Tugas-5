@@ -36,11 +36,17 @@ namespace Paintastic.Player
         private GameObject charaObj;
         [SerializeField]
         private GameObject charaParObj;
+
+
+        [SerializeField]
+        private GameObject _playerSpawnVFX;
         private void Start()
         {
             gridManager = GameObject.Find("GridManager");
             playerControl = gridManager.GetComponent<PlayerControlScript>();
             gridcont = gridManager.GetComponent<GridContainer>();
+
+            Instantiate(_playerSpawnVFX, transform.position, Quaternion.Euler(90, 0, 0));
 
             playerCanMove = true;
 
