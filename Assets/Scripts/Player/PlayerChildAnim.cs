@@ -7,12 +7,12 @@ namespace Paintastic.Player
     public class PlayerChildAnim : MonoBehaviour
     {
         private Animator _animator;
+        [SerializeField]
         private GameObject _charaFabs;
         private Animator _animatorChild;
 
         private void Start()
         {
-            _charaFabs = gameObject.transform.GetChild(0).gameObject;
             _animatorChild = _charaFabs.GetComponent<Animator>();
             _animator = GetComponent<Animator>();
         }

@@ -91,7 +91,7 @@ namespace Paintastic.Pickable
         {
             if (item.tag == "collect")
             {
-                Instantiate(_collectVFX, item.transform.position, Quaternion.identity);
+                Instantiate(_collectVFX, item.transform.position, Quaternion.Euler(90, 0, 0));
                 _scoreManager.AddPoint(playerIndex);
                 _gameplay.PlayerTimer(playerIndex);
                 _scoreManager.ActivateDoubleScore(playerIndex);
