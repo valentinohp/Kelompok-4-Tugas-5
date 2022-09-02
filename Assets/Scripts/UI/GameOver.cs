@@ -14,6 +14,9 @@ namespace Paintastic.UI
         [SerializeField] private Button _backToMenu;
         [SerializeField] private Image _winnerColor;
         [SerializeField] private TMP_Text _winnerText;
+        [SerializeField] private GameObject _topiParent;
+        [SerializeField] private GameObject _topiChild;
+        [SerializeField] private GameObject _gameOverDance;
 
         private void OnEnable()
         {
@@ -32,14 +35,25 @@ namespace Paintastic.UI
             SceneManager.LoadScene("Main Menu");
         }
 
-        private void SetWinner(int playerIndex, Color playerColor, int numberOfPlayer)
+        private void SetWinner(int playerIndex, Color playerColor, int numberOfPlayer, Material winMat)
         {
+            _gameOverDance.SetActive(true);
             _winnerColor.color = playerColor;
             if (playerIndex == -1)
                 _winnerText.text = "Draw!";
             else
                 _winnerText.text = $"Player {playerIndex + 1} Win!";
             _gameOver.SetActive(true);
+            SetTopiColor(winMat);
+        }
+
+        private void SetTopiColor(Material winMat)
+        {
+            MeshRenderer childtopi = _topiChild.GetComponent<MeshRenderer>();
+            MeshRenderer parrenttopi = _topiParent.GetComponent<MeshRenderer>();
+
+            childtopi.material = winMat;
+            parrenttopi.material = winMat;
         }
     }
 }
