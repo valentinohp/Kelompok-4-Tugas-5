@@ -16,9 +16,9 @@ namespace Paintastic.UI.ColorSelect
 
         public static Color[] Colors = new Color[]
         {
-            Color.red,
+            new Color(1f, 0.25f, 0.2f),
             Color.green,
-            Color.blue,
+            new Color(0.6f, 1f, 1f),
             Color.yellow,
             Color.white,
             Color.black,
