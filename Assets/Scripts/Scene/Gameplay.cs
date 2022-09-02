@@ -13,7 +13,7 @@ namespace Paintastic.Scene.Gameplay
     public class Gameplay : MonoBehaviour
     {
         public static UnityAction OnGameplay;
-        public static UnityAction<int, Color, int> OnGameOver;
+        public static UnityAction<int, Color, int, Material> OnGameOver;
         public static UnityAction OnItemTimerEnd;
 
         [SerializeField] private Timer _gameTimer;
@@ -29,6 +29,7 @@ namespace Paintastic.Scene.Gameplay
         [SerializeField] private Button _playButton;
         [SerializeField] private GameObject _tutorialPanel;
         [SerializeField] private GameObject _pausePanel;
+        [SerializeField] private Material _defMaterial;
 
 
         private void Start()
@@ -92,6 +93,7 @@ namespace Paintastic.Scene.Gameplay
             int winnerIndex = -1;
             int winnerScore = -1;
             Color winnerColor = Color.grey;
+            Material winnerMaterial = _defMaterial;
             List<int> playerScore = _scoreManager.playersScore;
 
             for (int i = 0; i < _playerTimers.Length; i++)
@@ -104,6 +106,7 @@ namespace Paintastic.Scene.Gameplay
             }
 
             winnerColor = _playerControlScript.playersList[winnerIndex].GetComponent<PlayerScript>().GetPlayerMaterial().color;
+            winnerMaterial = _playerControlScript.playersList[winnerIndex].GetComponent<PlayerScript>().GetPlayerMaterial();
 
             for (int i = 0; i < playerScore.Count; i++)
             {
@@ -116,11 +119,12 @@ namespace Paintastic.Scene.Gameplay
                 {
                     winnerIndex = -1;
                     winnerColor = Color.grey;
+                    winnerMaterial = _defMaterial;
                     break;
                 }
             }
 
-            OnGameOver?.Invoke(winnerIndex, winnerColor, _playerTimers.Length);
+            OnGameOver?.Invoke(winnerIndex, winnerColor, _playerTimers.Length, winnerMaterial); ;
         }
 
         public void PlayerTimer(int playerIndex)

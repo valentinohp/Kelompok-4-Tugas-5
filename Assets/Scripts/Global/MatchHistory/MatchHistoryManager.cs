@@ -67,7 +67,7 @@ namespace Paintastic.Global.MatchHistory
             File.WriteAllText(_saveFile, json);
         }
 
-        private void AddWin(int winner, Color color, int numberOfPlayer)
+        private void AddWin(int winner, Color color, int numberOfPlayer, Material winMat)
         {
             if (winner != -1)
             {
