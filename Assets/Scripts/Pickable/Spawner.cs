@@ -23,6 +23,11 @@ namespace Paintastic.Pickable
         private Gameplay _gameplay;
         private Spawner _spawner;
 
+        [SerializeField]
+        private GameObject _bombVFX;
+        [SerializeField]
+        private GameObject _collectVFX;
+
         private void Start()
         {
             _timer.OnTimerEnd += SpawnItem;
@@ -86,6 +91,7 @@ namespace Paintastic.Pickable
         {
             if (item.tag == "collect")
             {
+                Instantiate(_collectVFX, item.transform.position, Quaternion.identity);
                 _scoreManager.AddPoint(playerIndex);
                 _gameplay.PlayerTimer(playerIndex);
                 _scoreManager.ActivateDoubleScore(playerIndex);
@@ -93,7 +99,7 @@ namespace Paintastic.Pickable
 
             else
             {
-
+                Instantiate(_bombVFX, item.transform.position, Quaternion.identity);
                 _scoreManager.DeactiveDoubleScore(playerIndex);
             }
             
