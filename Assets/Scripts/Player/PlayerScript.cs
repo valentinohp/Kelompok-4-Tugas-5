@@ -30,8 +30,12 @@ namespace Paintastic.Player
         private int gridsize;
         private int materialIndex;
         private Material playerMat;
+        [SerializeField]
         private GameObject childObj;
-
+        [SerializeField]
+        private GameObject charaObj;
+        [SerializeField]
+        private GameObject charaParObj;
         private void Start()
         {
             gridManager = GameObject.Find("GridManager");
@@ -122,24 +126,28 @@ namespace Paintastic.Player
         {
             if (Input.GetKey(leftward) && playerCanMove && tilePos % gridsize != 0)
             {
+                RotatePlayer(-90);
                 playerCanMove = false;
                 Move(-1);
             }
 
             if (Input.GetKey(rightward) && playerCanMove && ((tilePos + 1) % gridsize != 0))
             {
+                RotatePlayer(90);
                 playerCanMove = false;
                 Move(1);
             }
 
             if (Input.GetKey(upward) && playerCanMove && tilePos < (gridsize * (gridsize - 1)))
             {
+                RotatePlayer(0);
                 playerCanMove = false;
                 Move(+gridsize);
             }
 
             if (Input.GetKey(downward) && playerCanMove && tilePos > (gridsize - 1))
             {
+                RotatePlayer(180);
                 playerCanMove = false;
                 Move(-gridsize);
             }
@@ -166,8 +174,10 @@ namespace Paintastic.Player
 
         private void SetColor(Material colormat)
         {
-            GameObject child = gameObject.transform.GetChild(0).gameObject;
-            MeshRenderer childrenderer = child.GetComponent<MeshRenderer>();
+           
+            MeshRenderer childrenderer = childObj.GetComponent<MeshRenderer>();
+            MeshRenderer skinchara = charaObj.GetComponent<MeshRenderer>();
+            skinchara.material = colormat;
             childrenderer.material = colormat;
             playerMat = colormat;
         }
@@ -357,6 +367,11 @@ namespace Paintastic.Player
         public Material GetPlayerMaterial()
         {
             return playerMat;
+        }
+
+        private void RotatePlayer(float degree)
+        {
+            charaParObj.transform.rotation = Quaternion.Euler(0, degree, 0);
         }
     }
 }
